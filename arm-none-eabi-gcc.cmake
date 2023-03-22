@@ -33,6 +33,8 @@ endif()
 # Exports the compile options for each file as compile_commands.json
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(TC_PREFIX "arm-none-eabi-")
+
 # set toolchain (TC) path independent of host file system
 cmake_path(SET TC_PREFIX_PATH NORMALIZE "${TC_ROOT_FOLDER}/bin")
 cmake_path(SET TC___C_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gcc${TC_POSTFIX}")
