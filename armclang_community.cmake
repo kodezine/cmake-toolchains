@@ -35,8 +35,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
 set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
 
-set(FLAGS "--target=${ac6_target} -mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING)
-set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING)
+set(FLAGS "--target=${ac6_target} -mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING "Compile flags")
+set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING "Linker flags")
 
 set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${FLAGS})
