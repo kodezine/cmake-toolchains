@@ -1,16 +1,23 @@
-set(CMAKE_SYSTEM_NAME Generic)
-
-# The system processor is of the ARM family; this makes the CMSIS happy
-set(CMAKE_SYSTEM_PROCESSOR ARM)
 
 include(CMakePrintHelpers)
 
+if(CORTEX_TYPE STREQUAL "cm7")
+include(./cortex/cm7.cmake)
+elseif(CORTEX_TYPE STREQUAL "cm0")
+include(./cortex/cm0.cmake)
+else()
+message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
+endif()
+
+set(CMAKE_SYSTEM_NAME Generic)
+
+# The system processor is of the ARM family; this makes the CMSIS happy
+set(CMAKE_SYSTEM_PROCESSOR arm)
+
 # Specify toolchain postfix extension
-IF(WIN32)
-    set (TC_POSTFIX ".exe")
-ELSE()
-    set (TC_POSTFIX "")
-ENDIF()
+if(WIN32)
+    set(TC_POSTFIX ".exe")
+endif()
 
 # Specify location of toolchain root folder
 message(CHECK_START "Searching for LLVM_CLANG_ROOT_FOLDER")
@@ -32,10 +39,6 @@ cmake_path(SET TC_CXX_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/llvm-objcopy${TC_POSTFIX}")
 
-# set target compiler triplet (throws error otherwise)
-#set(CMAKE_C_COMPILER_TARGET     "arm-none-eabihf")
-#set(CMAKE_CXX_COMPILER_TARGET   "arm-none-eabihf")
-
 set(CMAKE_C_COMPILER    "${TC___C_EXEC}")
 set(CMAKE_CXX_COMPILER  "${TC_CXX_EXEC}")
 set(CMAKE_ASM_COMPILER  "${TC_ASM_EXEC}")
@@ -44,25 +47,4 @@ set(CMAKE_ASM_COMPILER  "${TC_ASM_EXEC}")
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-# All mandatory functions defined below
-include(CMakePrintHelpers)
-# Function to show compiler version
-function(showCompilerVersion)
-    execute_process(COMMAND "${CMAKE_C_COMPILER}" -dumpversion
-        OUTPUT_VARIABLE CVERSION
-        ERROR_VARIABLE CVERSION
-    )
-    SET(COMPILERVERSION ${CVERSION} PARENT_SCOPE)
-    cmake_print_variables(CVERSION)
-    cmake_print_variables(CMAKE_C_COMPILER)
-    MESSAGE( STATUS "CMD_OUTPUT:" ${CVERSION})
-endfunction(showCompilerVersion)
-
-# Function to convert the output to hex from axf
-function(convertELF_BIN_HEX target)
-    add_custom_command(TARGET ${target}${SUFFIX} POST_BUILD
-        COMMAND ${TC_ELF_EXEC} --bincombined -v --output "${CMAKE_CURRENT_BINARY_DIR}/${target}.bin" "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
-        COMMAND ${TC_ELF_EXEC} --i32combined -v --output "${CMAKE_CURRENT_BINARY_DIR}/${target}.hex" "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
-        COMMAND ${TC_ELF_EXEC} -s -v "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf" > "${target}.txt"
-    )
-endfunction(convertELF_BIN_HEX)
+include(./common/ac6.cmake)
