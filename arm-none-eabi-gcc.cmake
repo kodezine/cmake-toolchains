@@ -2,9 +2,9 @@
 include(CMakePrintHelpers)
 
 if(CORTEX_TYPE STREQUAL "cm7")
-include(./cortex/cm7.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm7.cmake)
 elseif(CORTEX_TYPE STREQUAL "cm0")
-include(./cortex/cm0.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm0.cmake)
 else()
 message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
 endif()
@@ -58,4 +58,4 @@ set(CMAKE_EXECUTABLE_SUFFIX_ASM     ".elf")
 set(CMAKE_EXECUTABLE_SUFFIX_C       ".elf")
 set(CMAKE_EXECUTABLE_SUFFIX_CXX     ".elf")
 
-include(./common/gcc.cmake)
+include({CMAKE_CURRENT_LIST_DIR}/common/gcc.cmake)
