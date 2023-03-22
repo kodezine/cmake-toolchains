@@ -58,4 +58,4 @@ set(CMAKE_EXECUTABLE_SUFFIX_ASM     ".elf")
 set(CMAKE_EXECUTABLE_SUFFIX_C       ".elf")
 set(CMAKE_EXECUTABLE_SUFFIX_CXX     ".elf")
 
-include({CMAKE_CURRENT_LIST_DIR}/common/gcc.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/common/gcc.cmake)
