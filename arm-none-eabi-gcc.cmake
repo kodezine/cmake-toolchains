@@ -43,8 +43,8 @@ cmake_path(SET TC_GDB_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gdb${TC_
 cmake_path(SET TC_OBJ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}objcopy${TC_POSTFIX}")
 cmake_path(SET TC_SIZ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}size${TC_POSTFIX}")
 
-set(FLAGS "-mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING "Compiler flags")
-set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING "Linker flags")
+set(FLAGS "${cpu_flag} ${cpu_mode} ${fpu_type} ${float_abi}" CACHE STRING "Compiler flags")
+set(LINK_FLAGS "${cpu_flags} ${cpu_mode}" CACHE STRING "Linker flags")
 
 #set(FLAGS                           "-fdata-sections -ffunction-sections --specs=nano.specs -Wl,--gc-sections")
 set(ASM_FLAGS                       "-x assembler-with-cpp")
