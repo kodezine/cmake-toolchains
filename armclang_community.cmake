@@ -31,16 +31,22 @@ endif()
 # Exports the compile options for each file as compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# set toolchain (TC) path independent of host file system
+cmake_path(SET TC___C_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX}")
+cmake_path(SET TC_CXX_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX}")
+cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX}")
+cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/fromelf${TC_POSTFIX}")
+
 # set target compiler triplet (throws error otherwise)
 set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
 set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
 
-set(FLAGS "{ac6_target} ${cpu_flag} ${fpu_type} ${float_abi}" CACHE STRING "Compile flags")
+set(FLAGS " ${cpu_flag} ${fpu_type} ${float_abi}" CACHE STRING "Compile flags")
 set(LINK_FLAGS "${cpu_link_flags}" CACHE STRING "Linker flags")
 
-set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${FLAGS})
-set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${FLAGS})
-set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC} ${FLAGS})
+set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${cpu_flags})
+set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC}  ${cpu_flags})
+set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC}  ${cpu_flags})
 
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)

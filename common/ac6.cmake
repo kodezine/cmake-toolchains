@@ -17,7 +17,7 @@ function(setTargetCompileOptions PROJECTNAME)
     PUBLIC
         #--target=arm-arm-none-eabi -mcpu=cortex-m7 -mfpu=fpv5-d16
         -std=c11
-        -mfloat-abi=hard
+        #-mfloat-abi=hard
         -c
         -fno-rtti
         -funsigned-char
