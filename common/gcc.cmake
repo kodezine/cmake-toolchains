@@ -13,12 +13,6 @@ endfunction()
 function(setTargetCompileOptions PROJECTNAME)
     target_compile_options( ${${PROJECTNAME}}
     PUBLIC
-    # MCU related flags
-        #-mcpu=cortex-m7
-        #-mthumb
-        #-mfpu=fpv5-d16
-        #-mfloat-abi=hard
-    # Compiler options
     # Other options
     -fdata-sections
     -ffunction-sections
@@ -31,12 +25,6 @@ endfunction(setTargetCompileOptions)
 function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
     PUBLIC
-    # MCU related flags
-        #-mcpu=cortex-m7
-        #-mthumb
-        #-mfpu=fpv5-d16
-        #-mfloat-abi=hard
-    # Debug options
     # Compiler Options
         -g
         -Wl,-Map=${${PROJECTNAME}}.map -Xlinker --cref
