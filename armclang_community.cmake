@@ -38,15 +38,20 @@ cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX
 cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/fromelf${TC_POSTFIX}")
 
 # set target compiler triplet (throws error otherwise)
-set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
-set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
+#set(CMAKE_C_COMPILER_TARGET     ${ac6_target})#"arm-arm-none-eabi")
+#set(CMAKE_CXX_COMPILER_TARGET   ${ac6_target})#"arm-arm-none-eabi")
+set(FLAGS "${ac6_target} ${cpu_flag} ${cpu_mode} ${fpu_type} ${float_abi}" CACHE STRING "Compiler flags")
+set(LINK_FLAGS "${ac6_target} ${cpu_flags} ${cpu_mode}" CACHE STRING "Linker flags")
+set(ASM_FLAGS                       "-x assembler-with-cpp")
 
-set(FLAGS " ${cpu_flag} ${fpu_type} ${float_abi}" CACHE STRING "Compile flags")
-set(LINK_FLAGS "${cpu_link_flags}" CACHE STRING "Linker flags")
+set(CMAKE_C_COMPILER                ${TC___C_EXEC} ${FLAGS})
+set(CMAKE_ASM_COMPILER              ${TC___C_EXEC} ${ASM_FLAGS})
+set(CMAKE_CXX_COMPILER              ${TC_CXX_EXEC} ${FLAGS} ${CPP_FLAGS})
 
-set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${cpu_flags})
-set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC}  ${cpu_flags})
-set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC}  ${cpu_flags})
+#set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${} ${cpu_flag})#-mcpu=cortex-m7)
+#set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${cpu_flag})#-mcpu=cortex-m7)
+#set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC} ${cpu_flag})#-mcpu=cortex-m7)
+
 
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
