@@ -1,9 +1,9 @@
 include(CMakePrintHelpers)
 
-if(CORTEX_TYPE STREQUAL "cm7")
-include(./cortex/cm7.cmake)
-elseif(CORTEX_TYPE STREQUAL "cm0")
-include(./cortex/cm0.cmake)
+if($ENV{CORTEX_TYPE} STREQUAL "cm7")
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm7.cmake)
+elseif($ENV{CORTEX_TYPE} STREQUAL "cm0")
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm0.cmake)
 else()
 message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
 endif()
@@ -35,8 +35,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
 set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
 
-set(FLAGS "--target=${ac6_target} -mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING "Compile flags")
-set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING "Linker flags")
+set(FLAGS "{ac6_target} ${cpu_flag} ${fpu_type} ${float_abi}" CACHE STRING "Compile flags")
+set(LINK_FLAGS "${cpu_link_flags}" CACHE STRING "Linker flags")
 
 set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${FLAGS})
@@ -45,4 +45,4 @@ set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC} ${FLAGS})
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-include(./common/ac6.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/common/ac6.cmake)

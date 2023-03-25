@@ -36,13 +36,6 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(TC_PREFIX "arm-none-eabi-")
 
 # set toolchain (TC) path independent of host file system
-#cmake_path(SET TC_PREFIX_PATH NORMALIZE "${TC_ROOT_FOLDER}/bin")
-#cmake_path(SET TC___C_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gcc${TC_POSTFIX}")
-#cmake_path(SET TC_CXX_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}g++${TC_POSTFIX}")
-#cmake_path(SET TC_GDB_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gdb${TC_POSTFIX}")
-#cmake_path(SET TC_OBJ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}objcopy${TC_POSTFIX}")
-#cmake_path(SET TC_SIZ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}size${TC_POSTFIX}")
-
 set(TC___C_EXEC "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gcc${TC_POSTFIX}")
 set(TC_CXX_EXEC "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}g++${TC_POSTFIX}")
 set(TC_GDB_EXEC "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}gdb${TC_POSTFIX}")
@@ -51,10 +44,7 @@ set(TC_SIZ_EXEC "${TC_ROOT_FOLDER}/bin/${TC_PREFIX}size${TC_POSTFIX}")
 
 set(FLAGS "${cpu_flag} ${cpu_mode} ${fpu_type} ${float_abi}" CACHE STRING "Compiler flags")
 set(LINK_FLAGS "${cpu_flags} ${cpu_mode}" CACHE STRING "Linker flags")
-
-#set(FLAGS                           "-fdata-sections -ffunction-sections --specs=nano.specs -Wl,--gc-sections")
 set(ASM_FLAGS                       "-x assembler-with-cpp")
-#set(CPP_FLAGS                       "-fno-rtti -fno-exceptions -fno-threadsafe-statics")
 
 set(CMAKE_C_COMPILER                ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_ASM_COMPILER              ${TC___C_EXEC} ${ASM_FLAGS})
