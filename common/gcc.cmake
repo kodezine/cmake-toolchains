@@ -54,13 +54,21 @@ function(setTargetLinkOptions PROJECTNAME)
     message(STATUS "Startup file ${${${PROJECTNAME}}_STARTUP_FILE}")
     message(STATUS "Linking with ${${${PROJECTNAME}}_LINKER_PATH}/${${${PROJECTNAME}}_LINKER_SCRIPT}")
 endfunction(setTargetLinkOptions)
-set(CMAKE_EXECUTABLE_SUFFIX ".elf")
+
 # Function to convert the output to hex from axf
-function(convertELF_BIN_HEX target)
-    add_custom_command(TARGET ${target}${SUFFIX} POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -Oihex ${CMAKE_CURRENT_BINARY_DIR}/${target} ${CMAKE_CURRENT_BINARY_DIR}/${target}.hex
-#        COMMAND ${CMAKE_OBJCOPY} -Oihex "${CMAKE_CURRENT_BINARY_DIR}/${target}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.hex"
-#        COMMAND ${CMAKE_OBJCOPY} -Obinary "${CMAKE_CURRENT_BINARY_DIR}/${target}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.bin"
-#        COMMAND ${CMAKE_SIZE_UTIL} -B "${CMAKE_CURRENT_BINARY_DIR}/${target}"
+function(convertELF_BIN_HEX TARGET_NAME)
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${TARGET_NAME}>
+    )
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O ihex
+        $<TARGET_FILE:${TARGET_NAME}> ${TARGET_NAME}.hex
+    )
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary
+        $<TARGET_FILE:${TARGET_NAME}> ${TARGET_NAME}.bin
     )
 endfunction(convertELF_BIN_HEX)
