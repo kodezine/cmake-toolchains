@@ -37,7 +37,6 @@ function(setTargetLinkOptions PROJECTNAME)
         #-mfpu=fpv5-d16
         #-mfloat-abi=hard
     # Debug options
-    ${FLAGS}
     # Compiler Options
         -g
         -Wl,-Map=${${PROJECTNAME}}.map -Xlinker --cref
@@ -55,12 +54,13 @@ function(setTargetLinkOptions PROJECTNAME)
     message(STATUS "Startup file ${${${PROJECTNAME}}_STARTUP_FILE}")
     message(STATUS "Linking with ${${${PROJECTNAME}}_LINKER_PATH}/${${${PROJECTNAME}}_LINKER_SCRIPT}")
 endfunction(setTargetLinkOptions)
-
+set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 # Function to convert the output to hex from axf
 function(convertELF_BIN_HEX target)
     add_custom_command(TARGET ${target}${SUFFIX} POST_BUILD
-        COMMAND ${CMAKE_OBJCOPY} -Oihex "${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.hex"
-        COMMAND ${CMAKE_OBJCOPY} -Obinary "${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.bin"
-        COMMAND ${CMAKE_SIZE_UTIL} -B "${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX}"
+    COMMAND ${CMAKE_OBJCOPY} -Oihex ${CMAKE_CURRENT_BINARY_DIR}/${target} ${CMAKE_CURRENT_BINARY_DIR}/${target}.hex
+#        COMMAND ${CMAKE_OBJCOPY} -Oihex "${CMAKE_CURRENT_BINARY_DIR}/${target}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.hex"
+#        COMMAND ${CMAKE_OBJCOPY} -Obinary "${CMAKE_CURRENT_BINARY_DIR}/${target}" "${CMAKE_CURRENT_BINARY_DIR}/${target}.bin"
+#        COMMAND ${CMAKE_SIZE_UTIL} -B "${CMAKE_CURRENT_BINARY_DIR}/${target}"
     )
 endfunction(convertELF_BIN_HEX)
