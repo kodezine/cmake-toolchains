@@ -31,6 +31,7 @@ function(setTargetLinkOptions PROJECTNAME)
         -Wl,--gc-sections
         -Wl,-z,defs
         -Wl,--print-memory-usage
+        --specs=nosys.specs
         --specs=nano.specs
         #-nodefaultlibs Can Not Compile without standard libraries
         -lm
