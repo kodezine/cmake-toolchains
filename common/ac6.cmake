@@ -48,8 +48,7 @@ endfunction(setTargetCompileOptions)
 function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
         PUBLIC
-        #--cpu Cortex-M7.fp.dp
-        ${LINK_FLAGS}
+        --cpu Cortex-M0
         --strict
         "$<$<CONFIG:Debug>:--bestdebug>"            # Debug symbols
         "$<$<CONFIG:Release>:--no_debug>"           # No Debug symbols
@@ -57,7 +56,6 @@ function(setTargetLinkOptions PROJECTNAME)
         --summary_stderr
         --info common,debug,sizes,totals,veneers,unused,summarysizes
     )
-    message(STATUS "Startup file ${${${PROJECTNAME}}_STARTUP_FILE}")
     message(STATUS "Linking with ${${${PROJECTNAME}}_SCATTER_PATH}/${${${PROJECTNAME}}_SCATTER_FILE}")
 endfunction(setTargetLinkOptions)
 
