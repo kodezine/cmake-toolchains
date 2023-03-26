@@ -24,7 +24,7 @@ if(NOT EXISTS "$ENV{ARM_CLANG_ROOT_FOLDER}")
     message(CHECK_FAIL "not found.")
     message(FATAL_ERROR "No valid compiler for this toolchain found, aborting!")
 else()
-    message(CHECK_PASS "found ... \"$ENV{ARM_CLANG_ROOT_FOLDER}\"") 
+    message(CHECK_PASS "found ... \"$ENV{ARM_CLANG_ROOT_FOLDER}\"")
     set(TC_ROOT_FOLDER "$ENV{ARM_CLANG_ROOT_FOLDER}")
 endif()
 

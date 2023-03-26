@@ -40,7 +40,6 @@ function(setTargetLinkOptions PROJECTNAME)
         -L${${${PROJECTNAME}}_LINKER_PATH}
         -T${${${PROJECTNAME}}_LINKER_SCRIPT}
     )
-    message(STATUS "Startup file ${${${PROJECTNAME}}_STARTUP_FILE}")
     message(STATUS "Linking with ${${${PROJECTNAME}}_LINKER_PATH}/${${${PROJECTNAME}}_LINKER_SCRIPT}")
 endfunction(setTargetLinkOptions)
 
