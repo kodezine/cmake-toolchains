@@ -36,16 +36,22 @@ cmake_path(SET TC___C_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_CXX_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/llvm-objcopy${TC_POSTFIX}")
+cmake_path(SET TC_SIZ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/llvm-size${TC_POSTFIX}")
 
 # set target compiler triplet (throws error otherwise)
 set(FLAGS "${llvm_config_file}" CACHE STRING "Compiler flags")
-#set(LINK_FLAGS "${ac6_link_flag}" CACHE STRING "Linker flags")
 set(ASM_FLAGS                       "-x assembler-with-cpp")
 
 set(CMAKE_C_COMPILER                ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_ASM_COMPILER              ${TC___C_EXEC} ${ASM_FLAGS})
 set(CMAKE_CXX_COMPILER              ${TC_CXX_EXEC} ${FLAGS} ${CPP_FLAGS})
+set(CMAKE_OBJCOPY                   ${TC_ELF_EXEC})
+set(CMAKE_SIZE                      ${TC_SIZ_EXEC})
 
+set(CMAKE_EXECUTABLE_SUFFIX_ASM     ".elf")
+set(CMAKE_EXECUTABLE_SUFFIX_C       ".elf")
+set(CMAKE_EXECUTABLE_SUFFIX_CXX     ".elf")
+set(CMAKE_EXECUTABLE_SUFFIX         ".elf")
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 

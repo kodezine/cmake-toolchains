@@ -15,9 +15,7 @@ endfunction(showCompilerVersion)
 function(setTargetCompileOptions PROJECTNAME)
     target_compile_options( ${${PROJECTNAME}}
     PUBLIC
-        #--target=arm-arm-none-eabi -mcpu=cortex-m7 -mfpu=fpv5-d16
         -std=c11
-        #-mfloat-abi=hard
         -c
         -fno-rtti
         -funsigned-char

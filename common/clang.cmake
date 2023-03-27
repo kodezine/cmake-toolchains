@@ -43,24 +43,26 @@ endfunction(setTargetCompileOptions)
 function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
         PUBLIC
-#        --cpu Cortex-M0
-#        --strict
-#        "$<$<CONFIG:Debug>:--bestdebug>"            # Debug symbols
-#        "$<$<CONFIG:Release>:--no_debug>"           # No Debug symbols
-        #-specs=picolibc.specs
         -L${${${PROJECTNAME}}_LLVM_LINKER_PATH}
         -T${${${PROJECTNAME}}_LLVM_LINKER_SCRIPT}
-#        --summary_stderr
-#        --info common,debug,sizes,totals,veneers,unused,summarysizes
     )
     message(STATUS "Linking with ${${${PROJECTNAME}}_LLVM_LINKER_PATH}/${${${PROJECTNAME}}_LLVM_LINKER_SCRIPT}")
 endfunction(setTargetLinkOptions)
 
 # Function to convert the output to hex from axf
-function(convertELF_BIN_HEX target)
-    add_custom_command(TARGET ${target}${SUFFIX} POST_BUILD
-        COMMAND ${TC_ELF_EXEC} --bincombined -v --output "${CMAKE_CURRENT_BINARY_DIR}/${target}.bin" "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
-        COMMAND ${TC_ELF_EXEC} --i32combined -v --output "${CMAKE_CURRENT_BINARY_DIR}/${target}.hex" "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
-        COMMAND ${TC_ELF_EXEC} -s -v "${CMAKE_CURRENT_BINARY_DIR}/${target}.elf" > "${target}.txt"
+function(convertELF_BIN_HEX TARGET_NAME)
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${TARGET_NAME}>
+    )
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O ihex
+        $<TARGET_FILE:${TARGET_NAME}> ${TARGET_NAME}.hex
+    )
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary
+        $<TARGET_FILE:${TARGET_NAME}> ${TARGET_NAME}.bin
     )
 endfunction(convertELF_BIN_HEX)
