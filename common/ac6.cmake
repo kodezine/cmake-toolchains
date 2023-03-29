@@ -15,6 +15,7 @@ endfunction(showCompilerVersion)
 function(setTargetCompileOptions PROJECTNAME)
     target_compile_options( ${${PROJECTNAME}}
     PUBLIC
+        -xc
         -std=c11
         -c
         -fno-rtti
@@ -22,8 +23,7 @@ function(setTargetCompileOptions PROJECTNAME)
         -fshort-enums
         -fshort-wchar
         -masm=auto
-        -gdwarf-3                                   # defaulting to legacy debug tables for armgdb debuggers
-        -fno-ldm-stm
+        -gdwarf-4                                   # defaulting to legacy debug tables for armgdb debuggers
         -ffunction-sections
         -Wno-packed
         -Wno-missing-variable-declarations
