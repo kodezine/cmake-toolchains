@@ -10,7 +10,7 @@ cmake_print_variables(GITHUB_BRANCH_ST_CMSIS)
 FetchContent_Declare(
     st_CMSIS                             # Recommendation: Stick close to the original name.
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-    URL https://github.com/STMicroelectronics/cmsis_device_f0/releases/tag/v${GITHUB_BRANCH_ST_CMSIS}.tar.gz
+    URL https://github.com/STMicroelectronics/cmsis_device_f0/archive/refs/tags/v${GITHUB_BRANCH_ST_CMSIS}.tar.gz
     URL_HASH MD5=3973d99a89ac5fdf1f2593abc29a73d2981ce94a
 )
 
