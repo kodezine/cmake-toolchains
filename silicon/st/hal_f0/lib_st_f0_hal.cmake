@@ -12,12 +12,16 @@ endif()
 if(NOT DEFINED STM32_DEVICE)
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a STM32 device definition")
 endif()
+if(NOT DEFINED STM32_HAL_CONFIGURATION)
+    message(STATUS "${PROJECT_NAME} will use all available HAL layer artefacts")
+    configure_file(${st_hal_SOURCE_DIR}/Inc/${PROJECT_NAME}_conf_template.h ${st_hal_SOURCE_DIR}/Inc/${PROJECT_NAME}_conf.h COPYONLY)
+endif()
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CMakePrintHelpers)
 
-add_library(${PROJECT_NAME} STATIC)
+add_library(${PROJECT_NAME} STATIC EXCLUDE_FROM_ALL)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
 # Get the STM32 HAL and CMSIS drivers from STM GitHub pages
@@ -123,7 +127,6 @@ set(${PROJECT_NAME}_PUBLIC_HEADERS
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_can.h
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_cec.h
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_comp.h
-    ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_conf_template.h
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_cortex.h
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_crc.h
     ${st_HAL_DRV_INCLUDE_DIR}/stm32f0xx_hal_crc_ex.h
