@@ -3,6 +3,10 @@
 if(${STM32_TYPE} STREQUAL "f0")
     include(${CMAKE_CURRENT_LIST_DIR}/hal_${STM32_TYPE}/st_CMSIS.cmake)
     include(${CMAKE_CURRENT_LIST_DIR}/hal_${STM32_TYPE}/st_HAL.cmake)
+    # Add stm32 drivers for each defined STM32 Device
+    if(${STM32_DEVICE} STREQUAL "STM32F072xB")
+        include(${CMAKE_CURRENT_LIST_DIR}/hal_${STM32_TYPE}/lib_st_${STM32_TYPE}_hal.cmake)
+    endif()
 else()
-message(FATAL_ERROR "STM Drivers can not be defined ")
+    message(FATAL_ERROR "STM Drivers can not be defined ")
 endif()
