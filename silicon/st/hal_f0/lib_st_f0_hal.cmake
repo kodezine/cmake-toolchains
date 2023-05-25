@@ -24,7 +24,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CMakePrintHelpers)
 
-add_library(${PROJECT_NAME} STATIC EXCLUDE_FROM_ALL)
+add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
 # Get the STM32 HAL and CMSIS drivers from STM GitHub pages
@@ -118,8 +118,8 @@ target_compile_definitions(${PROJECT_NAME}
     PUBLIC
         USE_HAL_DRIVER
         ${STM32_DEVICE}
-        __UVISION_VERSION="537"
-        _RTE_
+#        __UVISION_VERSION="537"
+#        _RTE_
 )
 
 set(${PROJECT_NAME}_PUBLIC_HEADERS
