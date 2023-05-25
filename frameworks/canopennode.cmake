@@ -1,4 +1,4 @@
-# Minimum version for cmake compatiblity
+## Minimum version for cmake compatiblity
 cmake_minimum_required(VERSION 3.25)
 include(CMakePrintHelpers)
 include(FetchContent)
@@ -9,15 +9,16 @@ project(canopennode-stm32
     DESCRIPTION "CANopen node implementation for STM32 based controllers"
 )
 
-if(NOT DEFINED ${STM32_TYPE})
-    message(FATAL_ERROR "${PROJECT_NAME} CAN Node needs STM32 type to work, define based on STM32 microcontroller family type")
+set(libName canopennode-stm32)
+if(NOT DEFINED STM32_BOARD_TYPE)
+    message(FATAL_ERROR "${libName} CAN Node needs STM32_BOARD_TYPE to work, e.g. stm32f072rb_disco")
 endif()
 if(NOT EXISTS ${CANOPEN_OBJECT_DICTIONARY_PATH})
-    message(FATAL_ERROR "${PROJECT_NAME} CAN-not work without a object dictionary, quiting with pain.")
+    message(FATAL_ERROR "${libName} CAN-not work without a object dictionary, quiting with pain.")
 endif()
 
-set(libName ${PROJECT_NAME})
-message(STATUS "Building ${libName} with STMCubeMX HAL (stm32${STM32_TYPE}xx_hal.a)")
+set(libName ${libName})
+message(STATUS "Building ${libName} with STM32${STM32_TYPE} family board ${STM32_BOARD_TYPE}.a static library")
 add_library(${libName} STATIC)
 
 target_sources(${libName}
@@ -70,7 +71,7 @@ target_include_directories(${libName}
 )
 
 target_link_libraries(${libName}
-    stm32${STM32_TYPE}xx_hal
+    ${STM32_BOARD_TYPE}
 )
 setTargetCompileOptions(libName)
 
@@ -91,6 +92,6 @@ target_include_directories(${libName}
 )
 
 target_link_libraries(${libName}
-    ${PROJECT_NAME}
+    canopennode-stm32
 )
 setTargetCompileOptions(libName)
