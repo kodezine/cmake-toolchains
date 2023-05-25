@@ -209,6 +209,7 @@ write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
 )
 
 target_link_libraries(${PROJECT_NAME}
+    INTERFACE
     cmsis-core
 )
 
