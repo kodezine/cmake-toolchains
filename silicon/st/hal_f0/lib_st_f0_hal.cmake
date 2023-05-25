@@ -17,6 +17,9 @@ if(NOT DEFINED STM32_HAL_CONFIGURATION)
     configure_file(${st_hal_SOURCE_DIR}/Inc/${PROJECT_NAME}_conf_template.h ${st_hal_SOURCE_DIR}/Inc/${PROJECT_NAME}_conf.h COPYONLY)
 endif()
 
+set(cmsis_DEVICE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/Device/ARM/ARMCM0/Include" CACHE STRING "Path to ARM0 from standard CMSIS")
+set(cmsis_CORE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/CMSIS/Core/Include" CACHE STRING "Path to CMSIS core includes")
+
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CMakePrintHelpers)
@@ -203,6 +206,10 @@ set_target_properties(${PROJECT_NAME}
 write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
     VERSION       ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion
+)
+
+target_link_libraries(${PROJECT_NAME}
+    cmsis-core
 )
 
 setTargetCompileOptions(PROJECT_NAME)
