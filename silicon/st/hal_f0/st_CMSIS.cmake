@@ -11,7 +11,7 @@ FetchContent_Declare(
     st_CMSIS                             # Recommendation: Stick close to the original name.
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     URL https://github.com/STMicroelectronics/cmsis_device_f0/archive/refs/tags/v${GITHUB_BRANCH_ST_CMSIS}.tar.gz
-    URL_HASH MD5=d41d8cd98f00b204e9800998ecf8427e
+    URL_HASH MD5=8c2bb17d4cf7384ba0b7e07fcfa40344
 )
 
 FetchContent_GetProperties(st_CMSIS)
