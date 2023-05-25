@@ -1,11 +1,15 @@
 # This file setups a new static libstm32f0xx_hal.a library from all sources available
-project(stm32f0xx_hal C ASM CXX)
-
+project(
+    NAME        stm32f0xx_hal
+    VERSION     0.0.1
+    LANGUAGES   C ASM CXX
+    DESCRIPTION "Hardware Abstraction Layer for STM32 F0 devices"
+)
 
 if(NOT (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm"))
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a suitable ARM cross compiler; no target build.")
 endif()
-if(NOT ${STM32_DEVICE})
+if(NOT DEFINED STM32_DEVICE)
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a STM32 device definition")
 endif()
 
