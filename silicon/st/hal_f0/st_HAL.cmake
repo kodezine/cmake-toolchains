@@ -11,7 +11,7 @@ FetchContent_Declare(
     st_HAL                             # Recommendation: Stick close to the original name.
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     URL https://github.com/STMicroelectronics/stm32f0xx_hal_driver/archive/refs/tags/v${GITHUB_BRANCH_ST_HAL}.tar.gz
-    URL_HASH MD5=5fd31c52559a593dd9038c4abb4b85faeac728c6
+    URL_HASH MD5=2d463a58529b263753a4edc7a5dd5678
 )
 
 FetchContent_GetProperties(st_HAL)
