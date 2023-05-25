@@ -1,6 +1,6 @@
 # This file setups a new static libstm32f0xx_hal.a library from all sources available
 project(
-    NAME        stm32f0xx_hal
+    stm32f0xx_hal
     VERSION     0.0.1
     LANGUAGES   C ASM CXX
     DESCRIPTION "Hardware Abstraction Layer for STM32 F0 devices"
