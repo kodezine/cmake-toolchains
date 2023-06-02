@@ -15,27 +15,28 @@ endfunction(showCompilerVersion)
 function(setTargetCompileOptions PROJECTNAME)
     target_compile_options( ${${PROJECTNAME}}
     PUBLIC
-        -std=c11
-        -c
-        -fno-rtti
-        -funsigned-char
-        -fshort-enums
-        -fshort-wchar
-        -gdwarf-3                                   # defaulting to legacy debug tables for armgdb debuggers
-        -ffunction-sections
-        -Wno-packed
-        -Wno-missing-variable-declarations
-        -Wno-missing-prototypes
-        -Wno-missing-noreturn
-        -Wno-sign-conversion
-        -Wno-nonportable-include-path
-        -Wno-reserved-id-macro
-        -Wno-unused-macros
-        -Wno-documentation-unknown-command
-        -Wno-documentation
-        -Wno-parentheses-equality
-        -Wno-reserved-identifier
-        "$<$<CONFIG:Debug>:-O1>"                    # Optimized for debugging
+    ${COMPILER_SPECIFIC_CFLAGS}
+    -std=c11
+    -c
+    -fno-rtti
+    -funsigned-char
+    -fshort-enums
+    -fshort-wchar
+    -gdwarf-3                                   # defaulting to legacy debug tables for armgdb debuggers
+    -ffunction-sections
+    -Wno-packed
+    -Wno-missing-variable-declarations
+    -Wno-missing-prototypes
+    -Wno-missing-noreturn
+    -Wno-sign-conversion
+    -Wno-nonportable-include-path
+    -Wno-reserved-id-macro
+    -Wno-unused-macros
+    -Wno-documentation-unknown-command
+    -Wno-documentation
+    -Wno-parentheses-equality
+    -Wno-reserved-identifier
+    "$<$<CONFIG:Debug>:-O1>"                    # Optimized for debugging
     )
 endfunction(setTargetCompileOptions)
 
@@ -43,6 +44,7 @@ endfunction(setTargetCompileOptions)
 function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
         PUBLIC
+        ${COMPILER_SPECIFIC_LD_FLAGS}
         -L${${${PROJECTNAME}}_LLVM_LINKER_PATH}
         -T${${${PROJECTNAME}}_LLVM_LINKER_SCRIPT}
     )
