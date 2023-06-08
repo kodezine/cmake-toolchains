@@ -61,7 +61,6 @@ set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${FLAGS})
 set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC} ${FLAGS})
 
-
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
