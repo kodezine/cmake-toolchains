@@ -58,8 +58,8 @@ cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/fromelf${TC_POSTFIX}
 set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
 set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
 
-set(FLAGS "--target=${ac6_target} -mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING)
-set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING)
+set(FLAGS "--target=${ac6_target} -mcpu=${cpu_flag} -mfpu=${fpu_type} -mfloat-abi=${float_abi}" CACHE STRING "Compiler flags")
+set(LINK_FLAGS "--cpu ${cpu_link_flags}" CACHE STRING "Linker flags")
 
 set(CMAKE_C_COMPILER    ${TC___C_EXEC} ${FLAGS})
 set(CMAKE_CXX_COMPILER  ${TC_CXX_EXEC} ${FLAGS})
@@ -69,4 +69,4 @@ set(CMAKE_ASM_COMPILER  ${TC_ASM_EXEC} ${FLAGS})
 # Upfront configured for target compilier triplet for compiler checks
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-include(./common/ac6.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/common/ac6.cmake)
