@@ -54,10 +54,6 @@ cmake_path(SET TC_CXX_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX
 cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/armclang${TC_POSTFIX}")
 cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/fromelf${TC_POSTFIX}")
 
-# set target compiler triplet (throws error otherwise)
-set(CMAKE_C_COMPILER_TARGET     "${ac6_target}")
-set(CMAKE_CXX_COMPILER_TARGET   "${ac6_target}")
-
 set(FLAGS "${ac6_target} ${cpu_flag} ${fpu_type} ${float_abi}" CACHE STRING "Compiler flags")
 set(LINK_FLAGS "${cpu_link_flags}" CACHE STRING "Linker flags")
 
