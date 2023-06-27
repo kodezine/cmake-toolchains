@@ -46,7 +46,7 @@ endfunction(setTargetCompileOptions)
 function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
         PUBLIC
-        ${ac6_link_flag}
+        --cpu ${ac6_link_flag}
         --strict
         "$<$<CONFIG:Debug>:--bestdebug>"            # Debug symbols
         "$<$<CONFIG:Release>:--no_debug>"           # No Debug symbols
