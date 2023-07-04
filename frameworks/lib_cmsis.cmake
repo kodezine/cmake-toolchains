@@ -2,14 +2,16 @@ include(CMakePrintHelpers)
 include(FetchContent)
 
 set(GITHUB_BRANCH_CMSIS "5.9.0")
+set(GITHUB_BRANCH_CMSIS_MD5 "6b67968b5a3540156a4bd772d899339e")
 set(GITHUB_BRANCH_CMSIS_DSP "v1.10.1")
+set(GITHUB_BRANCH_CMSIS_DSP_MD5 "f3387e91b178806347c614dc26813472")
 cmake_print_variables(GITHUB_BRANCH_CMSIS)
 
 FetchContent_Declare(
     cmsis                             # Recommendation: Stick close to the original name.
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     URL https://github.com/ARM-software/CMSIS_5/archive/refs/tags/${GITHUB_BRANCH_CMSIS}.tar.gz
-    URL_HASH MD5=6b67968b5a3540156a4bd772d899339e
+    URL_HASH MD5=${GITHUB_BRANCH_CMSIS_MD5}
 )
 
 FetchContent_GetProperties(cmsis)
@@ -36,7 +38,7 @@ if(USE_CMSIS_DSP)
         cmsis_dsp                          # Recommendation: Stick close to the original name.
         DOWNLOAD_EXTRACT_TIMESTAMP TRUE
         URL https://github.com/ARM-software/CMSIS-DSP/archive/refs/tags/${GITHUB_BRANCH_CMSIS_DSP}.tar.gz
-        URL_HASH MD5=f3387e91b178806347c614dc26813472
+        URL_HASH MD5=${GITHUB_BRANCH_CMSIS_DSP_MD5}
     )
 
     FetchContent_GetProperties(cmsis_dsp)
