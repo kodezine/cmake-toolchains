@@ -8,7 +8,7 @@ endif()
 
 # the variable value should be always upper case
 string (TOUPPER ${STM32_TYPE} UPPERCASE_STM32_TYPE)
-
+string (TOLOWER ${STM32_TYPE} LOWERCASE_STM32_TYPE)
 # This brings the HAL and CMSIS from ST GitHub repos
 # only sources are fetched, configuration should be done by the master script
 if ((${UPPERCASE_STM32_TYPE} STREQUAL "F0") OR (${UPPERCASE_STM32_TYPE} STREQUAL "H7"))
@@ -43,9 +43,10 @@ endif()
 if ((${STM32_DEVICE} STREQUAL "STM32F072xB") OR
     (${STM32_DEVICE} STREQUAL "STM32H7A3xxQ"))
     set(st_CMSIS_DIR "${cubexx_SOURCE_DIR}/Drivers/CMSIS" CACHE PATH "Path to STM32CubeXX CMSIS folder")
-    set(st_HAL_Driver_DIR ${cubexx_SOURCE_DIR}/Drivers/STM32${UPPERCASE_STM32_TYPE}xx_HAL_Driver CACHE PATH "Path to STM32CubeXX Drivers folder")
-    cmake_print_variables(${cubexx_SOURCE_DIR} st_HAL_Driver_DIR)
-#    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/${STM32CubeXX})
+    set(st_HAL_Driver_DIR "${cubexx_SOURCE_DIR}/Drivers/STM32${UPPERCASE_STM32_TYPE}xx_HAL_Driver" CACHE PATH "Path to STM32CubeXX Drivers folder")
+    set(stm32_hal stm32${LOWERCASE_STM32_TYPE}xx_hal CACHE STRING "Prefix for HAL files")
+#    cmake_print_variables(stm32_hal st_CMSIS_DIR st_HAL_Driver_DIR)
+    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/${STM32CubeXX})
 else()
     message(FATAL_ERROR "${STM32_DEVICE} not supported yet.")
 endif()
