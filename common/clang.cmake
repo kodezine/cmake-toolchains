@@ -45,18 +45,29 @@ function(setTargetLinkOptions PROJECTNAME)
     target_link_options( ${${PROJECTNAME}}
         PUBLIC
         ${COMPILER_SPECIFIC_LD_FLAGS}
+        -Wl,-Map=${${PROJECTNAME}}.map -Xlinker --cref
         -L${${${PROJECTNAME}}_LLVM_LINKER_PATH}
         -T${${${PROJECTNAME}}_LLVM_LINKER_SCRIPT}
     )
     message(STATUS "Linking with ${${${PROJECTNAME}}_LLVM_LINKER_PATH}/${${${PROJECTNAME}}_LLVM_LINKER_SCRIPT}")
+    add_custom_command(
+        TARGET ${${PROJECTNAME}} POST_BUILD
+        COMMAND ${CMAKE_SIZE} --format=berkeley $<TARGET_FILE:${${PROJECTNAME}}>
+    )
+    add_custom_command(
+        TARGET ${${PROJECTNAME}} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O ihex
+        $<TARGET_FILE:${${PROJECTNAME}}> ${${PROJECTNAME}}.hex
+    )
+    add_custom_command(
+        TARGET ${${PROJECTNAME}} POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary
+        $<TARGET_FILE:${${PROJECTNAME}}> ${${PROJECTNAME}}.bin
+    )
 endfunction(setTargetLinkOptions)
 
 # Function to convert the output to hex from axf
 function(convertELF_BIN_HEX TARGET_NAME)
-    add_custom_command(
-        TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${TARGET_NAME}>
-    )
     add_custom_command(
         TARGET ${TARGET_NAME} POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -O ihex
