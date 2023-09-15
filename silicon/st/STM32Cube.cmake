@@ -12,9 +12,11 @@ string (TOLOWER ${STM32_TYPE} LOWERCASE_STM32_TYPE)
 # This brings the HAL and CMSIS from ST GitHub repos
 # only sources are fetched, configuration should be done by the master script
 if ((${UPPERCASE_STM32_TYPE} STREQUAL "F0") OR (${UPPERCASE_STM32_TYPE} STREQUAL "H7"))
+    set(STM32CUBEF0_MD5HASH "b39a990ccad47256e0a99b2b630a65b0")
+    set(STM32CUBEH7_MD5HASH "7457fb89c6a251167c968d169245b354")
     set(STM32CubeXX STM32Cube${UPPERCASE_STM32_TYPE})
     set(GITHUB_BRANCH_${STM32CubeXX} "v1.11.1")
-    set(GITHUB_BRANCH_${STM32CubeXX}_MD5 "7457fb89c6a251167c968d169245b354")
+    set(GITHUB_BRANCH_${STM32CubeXX}_MD5 ${STM32CUBE${UPPERCASE_STM32_TYPE}_MD5HASH})
     cmake_print_variables(GITHUB_BRANCH_${STM32CubeXX})
 
     FetchContent_Declare(
@@ -40,7 +42,8 @@ else()
 endif()
 
 # Add stm32 drivers for STM32 Device
-if ((${STM32_DEVICE} STREQUAL "STM32F072xB") OR
+if ((${STM32_DEVICE} STREQUAL "STM32F031x6") OR
+    (${STM32_DEVICE} STREQUAL "STM32F072xB") OR
     (${STM32_DEVICE} STREQUAL "STM32H7A3xxQ"))
     set(st_CMSIS_DIR "${cubexx_SOURCE_DIR}/Drivers/CMSIS" CACHE PATH "Path to STM32CubeXX CMSIS folder")
     set(st_HAL_Driver_DIR "${cubexx_SOURCE_DIR}/Drivers/STM32${UPPERCASE_STM32_TYPE}xx_HAL_Driver" CACHE PATH "Path to STM32CubeXX Drivers folder")
