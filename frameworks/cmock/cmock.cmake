@@ -14,7 +14,7 @@ FetchContent_GetProperties(cmock)
 if(NOT cmock_POPULATED)
     FetchContent_Populate(cmock)
 
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/cortex-m.cmake ${cmock_SOURCE_DIR}/CMakeLists.txt)
+    configure_file(${CMAKE_CURRENT_LIST_DIR}/target/cortex-m.cmake ${cmock_SOURCE_DIR}/CMakeLists.txt)
     # Library libcomock.a is in the /build/_deps/cmock-build directory
     add_subdirectory(${cmock_SOURCE_DIR} ${cmock_BINARY_DIR})
 endif()
