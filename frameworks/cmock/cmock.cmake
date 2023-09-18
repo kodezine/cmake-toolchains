@@ -1,10 +1,16 @@
 include(FetchContent)
 
+set(GITHUB_BRANCH_CMOCK "2.5.3")
+set(GITHUB_BRANCH_CMOCK_MD5 "fe3d01fdd6c267ffef38164926c7bc3d")
+
+cmake_print_variables(GITHUB_BRANCH_CMOCK)
+
+
 FetchContent_Declare(
     cmock  # Recommendation: Stick close to the original name.
     DOWNLOAD_EXTRACT_TIMESTAMP true
-    URL https://github.com/ThrowTheSwitch/CMock/archive/refs/tags/v2.5.3.tar.gz
-    URL_HASH MD5=fe3d01fdd6c267ffef38164926c7bc3d # v2.5.3
+    URL https://github.com/ThrowTheSwitch/CMock/archive/refs/tags/v${GITHUB_BRANCH_CMOCK}.tar.gz
+    URL_HASH MD5=${GITHUB_BRANCH_CMOCK_MD5}
     #GIT_REPOSITORY https://github.com/ThrowTheSwitch/CMock.git
     #GIT_TAG        v2.5.3
 )

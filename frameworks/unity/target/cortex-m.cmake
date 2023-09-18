@@ -53,7 +53,7 @@ function(setUnityTestProjectProperties project_name test_dir)
 
     # Register the test bin as a ctest executable test
     add_test(NAME ctest_${project_name}
-        COMMAND ${project_name}.elf
+        COMMAND /Applications/SEGGER/JLink/JRunExe -device ${JLINK_DEVICE} ${project_name}.elf
     )
 
 endfunction()
