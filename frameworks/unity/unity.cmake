@@ -21,3 +21,6 @@ if(NOT unity_POPULATED)
     # Library libcomock.a is in the /build/_deps/cmock-build directory
     add_subdirectory(${unity_SOURCE_DIR} ${unity_BINARY_DIR})
 endif()
+
+# establish the unity framework
+set(ENV{UNITY_DIR} ${unity_SOURCE_DIR})

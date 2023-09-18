@@ -18,3 +18,8 @@ if(NOT cmock_POPULATED)
     # Library libcomock.a is in the /build/_deps/cmock-build directory
     add_subdirectory(${cmock_SOURCE_DIR} ${cmock_BINARY_DIR})
 endif()
+
+# establish CMOCK environment
+set(ENV{CMOCK_DIR} ${cmock_SOURCE_DIR})
+set(CMOCK_SCRIPT_PATH $ENV{CMOCK_DIR}/scripts)
+set(CMOCK_LIB_PATH $ENV{CMOCK_DIR}/lib)
