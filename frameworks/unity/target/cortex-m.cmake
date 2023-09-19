@@ -1,4 +1,6 @@
 include(CMakePrintHelpers)
+include(ctest)
+enable_testing()
 # this is for generating a target based include
 string(TOUPPER ${CORTEX_TYPE} CORTEX_TYPE_UPPERCASE)
 configure_file(${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.txt ${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.h @ONLY NEWLINE_STYLE UNIX)
@@ -53,7 +55,7 @@ function(setUnityTestProjectProperties project_name test_dir)
 
     # Register the test bin as a ctest executable test
     add_test(NAME ctest_${project_name}
-        COMMAND /Applications/SEGGER/JLink/JRunExe -device ${JLINK_DEVICE} ${project_name}.elf
+        COMMAND /Applications/SEGGER/JLink/JRunExe --e --stderr --quit --device ${JLINK_DEVICE} $<TARGET_FILE:${project_name}>
     )
 
 endfunction()
