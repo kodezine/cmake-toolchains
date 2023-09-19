@@ -1,12 +1,12 @@
 include(CMakePrintHelpers)
 # This toolchain is a hybrid as described in
 # https://interrupt.memfault.com/blog/arm-cortexm-with-llvm-clang#update-clang-baremetal
-if($ENV{CORTEX_TYPE} STREQUAL "cm7")
-include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm7.cmake)
-elseif($ENV{CORTEX_TYPE} STREQUAL "cm0")
-include(${CMAKE_CURRENT_LIST_DIR}/cortex/cm0.cmake)
+if(($ENV{CORTEX_TYPE} STREQUAL "CM0") OR
+   ($ENV{CORTEX_TYPE} STREQUAL "CM4F") OR
+   ($ENV{CORTEX_TYPE} STREQUAL "CM7"))
+    include(${CMAKE_CURRENT_LIST_DIR}/cortex/${CORTEX_TYPE}.cmake)
 else()
-message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
+    message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
 endif()
 
 set(CMAKE_SYSTEM_NAME Generic)

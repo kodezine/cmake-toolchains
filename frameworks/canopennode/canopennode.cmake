@@ -17,6 +17,6 @@ if(NOT canopennode-stm32_POPULATED)
     FetchContent_Populate(canopennode-stm32)
 endif()
 
-configure_file(${CMAKE_CURRENT_LIST_DIR}/canopennode.cmake ${canopennode-stm32_SOURCE_DIR}/CMakeLists.txt COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/CMakeLists.cmake ${canopennode-stm32_SOURCE_DIR}/CMakeLists.txt COPYONLY)
 
 add_subdirectory(${canopennode-stm32_SOURCE_DIR})

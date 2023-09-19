@@ -8,7 +8,7 @@ exter "C" {
 /** stm 32 based header */
 #include "stm32@STM32_TYPE@xx.h"
 /** cortex cmsis header */
-#include "system_ARM@CORTEX_TYPE_UPPERCASE@.h"
+#include "system_ARM@ARMCMSIS_DEVICE@.h"
 
 #ifdef _cplusplus
 }

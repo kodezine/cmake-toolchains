@@ -1,8 +1,6 @@
 include(CMakePrintHelpers)
-include(ctest)
-enable_testing()
-# this is for generating a target based include
-string(TOUPPER ${CORTEX_TYPE} CORTEX_TYPE_UPPERCASE)
+
+# this is for generating a target based include ARMCMSIS_DEVICE from STM32Cube.cmake
 configure_file(${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.txt ${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.h @ONLY NEWLINE_STYLE UNIX)
 # Function to setup project executable
 function(setUnityTestProjectProperties project_name test_dir)

@@ -22,6 +22,8 @@ FetchContent_GetProperties(unity)
 
 if(NOT unity_POPULATED)
     FetchContent_Populate(unity)
+    include(ctest)
+    enable_testing()
     add_definitions(-DUNITY_INCLUDE_CONFIG_H)
     configure_file(${CMAKE_CURRENT_LIST_DIR}/target/unity_segger_rtt.txt ${unity_SOURCE_DIR}/src/unity_config.h COPYONLY)
     # Library libcomock.a is in the /build/_deps/cmock-build directory

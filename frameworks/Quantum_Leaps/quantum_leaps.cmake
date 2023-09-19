@@ -19,6 +19,6 @@ if(NOT qpc_POPULATED)
     FetchContent_Populate(qpc)
 endif()
 
-configure_file(${CMAKE_CURRENT_LIST_DIR}/qpc.cmake.in ${qpc_SOURCE_DIR}/CMakeLists.txt COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/CMakeLists.cmake ${qpc_SOURCE_DIR}/CMakeLists.txt COPYONLY)
 
 add_subdirectory(${qpc_SOURCE_DIR})

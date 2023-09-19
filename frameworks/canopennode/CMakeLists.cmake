@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.25)
 include(CMakePrintHelpers)
 include(FetchContent)
 
-project(canopennode-stm32
+project(
+    canopennode-stm32
     VERSION     0.0.1
     LANGUAGES   C ASM CXX
     DESCRIPTION "CANopen node implementation for STM32 based controllers"

@@ -21,6 +21,6 @@ if(NOT segger_rtt_POPULATED)
     FetchContent_Populate(segger_rtt)
 endif()
 
-configure_file(${CMAKE_CURRENT_LIST_DIR}/segger_rtt.cmake.in ${segger_rtt_SOURCE_DIR}/CMakeLists.txt COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/CMakeLists.cmake ${segger_rtt_SOURCE_DIR}/CMakeLists.txt COPYONLY)
 
 add_subdirectory(${segger_rtt_SOURCE_DIR})
