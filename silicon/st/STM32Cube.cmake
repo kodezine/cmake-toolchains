@@ -32,9 +32,9 @@ if ((${UPPERCASE_STM32_TYPE} STREQUAL "F0") OR (${UPPERCASE_STM32_TYPE} STREQUAL
         FetchContent_Populate(cubexx)
     endif()
     # Get the CMSIS5 independent library from ARM CMSIS GitHub pages
-    include(${cmake-toolchains_SOURCE_DIR}/frameworks/lib_cmsis.cmake)
+    include(${cmake-toolchains_SOURCE_DIR}/frameworks/ARM_CMSIS/arm_cmsis.cmake)
     # use the device family to set a cache variable for ARM Cortex Mx family here
-    set (ARMCMSIS_DEVICE ARM${ARMCORTEX_TYPE} CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
+    set (ARMCMSIS_DEVICE ARM$ENV{CORTEX_TYPE} CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
     cmake_print_variables(ARMCMSIS_DEVICE)
 else()
     message(FATAL_ERROR "STM Drivers can not be defined ")
