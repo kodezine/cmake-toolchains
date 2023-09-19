@@ -2,18 +2,17 @@
 #define TARGET_BASED_INCLUDES_H
 
 #ifdef _cplusplus
-exter "C" {
+extern "C" {
 #endif
 
 /** stm 32 based header */
 #include "stm32@STM32_TYPE@xx.h"
+
 /** cortex cmsis header */
-#include "system_ARM@ARMCMSIS_DEVICE@.h"
+#include "system_@ARMCMSIS_DEVICE@.h"
 
 #ifdef _cplusplus
 }
 #endif
-
-
 
 #endif
