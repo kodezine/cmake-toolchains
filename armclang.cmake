@@ -4,7 +4,7 @@ include(CMakePrintHelpers)
 if(($ENV{CORTEX_TYPE} STREQUAL "CM0") OR
    ($ENV{CORTEX_TYPE} STREQUAL "CM4F") OR
    ($ENV{CORTEX_TYPE} STREQUAL "CM7"))
-    include(${CMAKE_CURRENT_LIST_DIR}/cortex/${CORTEX_TYPE}.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/cortex/$ENV{CORTEX_TYPE}.cmake)
 else()
     message(FATAL_ERROR "Define a CORTEX TYPE in just before engaging this script")
 endif()
