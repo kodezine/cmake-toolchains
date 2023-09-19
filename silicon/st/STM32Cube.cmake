@@ -48,7 +48,7 @@ if ((${STM32_DEVICE} STREQUAL "STM32F031x6") OR
     set(st_HAL_Driver_DIR "${cubexx_SOURCE_DIR}/Drivers/STM32${UPPERCASE_STM32_TYPE}xx_HAL_Driver" CACHE PATH "Path to STM32CubeXX Drivers folder")
     set(stm32_hal stm32${LOWERCASE_STM32_TYPE}xx_hal CACHE STRING "Prefix for HAL files")
 #    cmake_print_variables(stm32_hal st_CMSIS_DIR st_HAL_Driver_DIR)
-    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/${STM32CubeXX})
+    add_subdirectory(${CMAKE_CURRENT_LIST_DIR})
 else()
     message(FATAL_ERROR "${STM32_DEVICE} not supported yet.")
 endif()
