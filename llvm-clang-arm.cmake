@@ -38,6 +38,10 @@ cmake_path(SET TC_ASM_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/clang${TC_POSTFIX}")
 cmake_path(SET TC_ELF_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/llvm-objcopy${TC_POSTFIX}")
 cmake_path(SET TC_SIZ_EXEC NORMALIZE "${TC_ROOT_FOLDER}/bin/llvm-size${TC_POSTFIX}")
 
+# exclusive for llvm compilers
+if(NOT EXISTS $ENV{LLVM_CLANG_ROOT_FOLDER}/bin/${llvm_config_file_name})
+    configure_file(${cmake-toolchains_SOURCE_DIR}/common/.llvm-configs/${llvm_config_file_name} $ENV{LLVM_CLANG_ROOT_FOLDER}/bin/${llvm_config_file_name} COPYONLY)
+endif()
 # set target compiler triplet (throws error otherwise)
 set(FLAGS "${llvm_config_file}" CACHE STRING "Compiler flags")
 set(ASM_FLAGS                       "-x assembler-with-cpp")
