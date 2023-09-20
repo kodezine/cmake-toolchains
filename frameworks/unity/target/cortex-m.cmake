@@ -53,8 +53,12 @@ function(setUnityTestProjectProperties project_name test_dir)
 
     # Register the test bin as a ctest executable test to run with JRun
     # See https://blog.segger.com/j-run-automating-performance-tests/
-    add_test(NAME ctest_${project_name}
-        COMMAND /Applications/SEGGER/JLink/JRunExe --device ${JLINK_DEVICE} $<TARGET_FILE:${project_name}>
-    )
+    if(EXISTS $ENV{SEGGER_JLINK_ROOT_FOLDER})
+        add_test(NAME ctest_${project_name}
+            COMMAND $ENV{SEGGER_JLINK_ROOT_FOLDER}/JRunExe --device ${JLINK_DEVICE} $<TARGET_FILE:${project_name}>
+        )
+    else()
+        message(FATAL_ERROR "Will not be able to work with RTT")
+    endif()
 
 endfunction()
