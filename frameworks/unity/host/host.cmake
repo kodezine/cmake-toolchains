@@ -5,7 +5,7 @@ function(setUnityTestProjectProperties project_name test_dir)
     set(UNITY_TEST_RUNNER_PATH ${CMAKE_CURRENT_BINARY_DIR}/runner)
     file(MAKE_DIRECTORY ${UNITY_TEST_RUNNER_PATH})
     execute_process(
-        COMMAND ruby ${CREATE_RUNNER_RUBY_PATH}/create_runner.rb ${test_dir}/${project_name}.c ${UNITY_TEST_RUNNER_PATH}/${project_name}_runner.c
+        COMMAND ruby ${CMOCK_SCRIPT_PATH}/create_runner.rb ${test_dir}/host/${project_name}.c ${UNITY_TEST_RUNNER_PATH}/${project_name}_runner.c
     )
     set(TEST_INCLUDE_DIR "${test_dir}")
 
@@ -13,17 +13,14 @@ function(setUnityTestProjectProperties project_name test_dir)
 
     target_sources(${project_name}
         PUBLIC
-            ${TEST_INCLUDE_DIR}/${project_name}.c
+            ${TEST_INCLUDE_DIR}/host/${project_name}.c
             ${UNITY_TEST_RUNNER_PATH}/${project_name}_runner.c
             ${TEST_MOCK_SOURCES}
             ${TEST_SOURCES}
-        PRIVATE
-            ${CMAKE_SOURCE_DIR}/common/test/ao_unittest_helper.c
     )
     target_compile_definitions(${project_name}
         PUBLIC
-            UNITY_MAKE_STATIC_GLOBAL    # Used by the compiler_attributes to expose static functions
-            TESTING                     # Used by many older AO for conditional code injection/removal
+            UNITY_MAKE_STATIC_GLOBAL
     )
 
     target_include_directories(${project_name}
@@ -31,16 +28,10 @@ function(setUnityTestProjectProperties project_name test_dir)
             $ENV{MOCK_OUT}
 
         PRIVATE
-            ${canopen_SOURCE_DIR}/include
-            ${canopen_SOURCE_DIR}/target
-            ${ql_SOURCE_DIR}/include
             ${TEST_MOCK_INCLUDES}
             ${TEST_INCLUDE_DIR}
             ${TEST_INCLUDE_DIR}/..
             ${OTHER_INCLUDE_DIR}
-            ${CMAKE_SOURCE_DIR}/common/inc
-            ${CMAKE_SOURCE_DIR}/common/test
-            ${CMAKE_SOURCE_DIR}/AO/canopen
     )
 
     target_compile_options(${project_name}
@@ -60,10 +51,8 @@ function(setUnityTestProjectProperties project_name test_dir)
     )
 
     target_link_libraries(${project_name}
-        PRIVATE
-            mock_banshi
-            mock_ql_os2
-            mock_components
+        PUBLIC
+            cmock
             m #math library
     )
 
