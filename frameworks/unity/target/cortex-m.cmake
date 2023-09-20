@@ -1,4 +1,5 @@
 include(CMakePrintHelpers)
+# Since we have begun including this file, we are sure we do need the RTT connection
 
 # this is for generating a target based include ARMCMSIS_DEVICE from STM32Cube.cmake
 configure_file(${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.txt ${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.h @ONLY NEWLINE_STYLE UNIX)
@@ -25,8 +26,7 @@ function(setUnityTestProjectProperties project_name test_dir)
     )
     target_compile_definitions(${project_name}
         PUBLIC
-            UNITY_MAKE_STATIC_GLOBAL    # Used by the compiler_attributes to expose static functions
-            TESTING                     # Used by many older AO for conditional code injection/removal
+            UNITY_MAKE_STATIC_GLOBAL
     )
 
     target_include_directories(${project_name}
@@ -51,9 +51,10 @@ function(setUnityTestProjectProperties project_name test_dir)
     setTargetCompileOptions(project_name)
     setTargetLinkOptions(project_name)
 
-    # Register the test bin as a ctest executable test
+    # Register the test bin as a ctest executable test to run with JRun
+    # See https://blog.segger.com/j-run-automating-performance-tests/
     add_test(NAME ctest_${project_name}
-        COMMAND /Applications/SEGGER/JLink/JRunExe --e --stderr --quit --device ${JLINK_DEVICE} $<TARGET_FILE:${project_name}>
+        COMMAND /Applications/SEGGER/JLink/JRunExe --device ${JLINK_DEVICE} $<TARGET_FILE:${project_name}>
     )
 
 endfunction()

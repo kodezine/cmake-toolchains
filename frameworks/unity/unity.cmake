@@ -14,8 +14,6 @@ FetchContent_Declare(
     DOWNLOAD_EXTRACT_TIMESTAMP true
     URL https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v${GITHUB_BRANCH_UNITY}.tar.gz
     URL_HASH MD5=${GITHUB_BRANCH_UNITY_MD5}
-#    GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
-#    GIT_TAG v2.5.2
 )
 
 FetchContent_GetProperties(unity)
@@ -23,14 +21,11 @@ FetchContent_GetProperties(unity)
 if(NOT unity_POPULATED)
     FetchContent_Populate(unity)
     enable_testing()
-    add_definitions(-DUNITY_INCLUDE_CONFIG_H)
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/target/unity_segger_rtt.txt ${unity_SOURCE_DIR}/src/unity_config.h COPYONLY)
-    # Library libcomock.a is in the /build/_deps/cmock-build directory
-    add_subdirectory(${unity_SOURCE_DIR} ${unity_BINARY_DIR})
-    target_link_libraries(unity
-        PUBLIC                  # The use of SEGGER RTT has to be public, else header is not found
-            segger_rtt
-    )
+    if(CMAKE_SYSTEM_PROCESSOR STREQUAL "arm")
+        include(${CMAKE_CURRENT_LIST_DIR}/target/unity_target.cmake)
+    else()
+        include(${CMAKE_CURRENT_LIST_DIR}/host/unity_host.cmake)
+    endif()
 endif()
 
 # establish the unity framework

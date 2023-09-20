@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 project(cmock
     VERSION 2.5.3
     LANGUAGES C
-    DESCRIPTION "C Unit testing framework."
+    DESCRIPTION "C mocking framework."
 )
 add_library(cmock STATIC)
 add_library(cmock::framework ALIAS cmock)
@@ -37,7 +37,8 @@ set_target_properties(cmock
 )
 
 target_link_libraries(cmock
-    unity
+    PUBLIC
+        unity
 )
 
 
