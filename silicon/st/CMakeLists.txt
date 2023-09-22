@@ -76,8 +76,6 @@ target_compile_definitions(${PROJECT_NAME}
     PUBLIC
         USE_HAL_DRIVER
         ${STM32_DEVICE}
-#        __UVISION_VERSION="537"
-#        _RTE_
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -95,8 +93,8 @@ write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
 )
 
 target_link_libraries(${PROJECT_NAME}
-    INTERFACE
-    cmsis-core
+    PRIVATE
+    cmsis
 )
 
 setTargetCompileOptions(PROJECT_NAME)
