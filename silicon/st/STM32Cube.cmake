@@ -32,9 +32,9 @@ if ((${UPPERCASE_STM32_TYPE} STREQUAL "F0") OR (${UPPERCASE_STM32_TYPE} STREQUAL
         FetchContent_Populate(cubexx)
     endif()
     # Get the CMSIS5 independent library from ARM CMSIS GitHub pages
-    include(${cmake-toolchains_SOURCE_DIR}/frameworks/ARM_CMSIS/arm_cmsis.cmake)
+    include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_cmsis/arm_cmsis.cmake)
 
-    include(${cmake-toolchains_SOURCE_DIR}/frameworks/ARM_CMSIS_DSP/arm_cmsis_dsp.cmake)
+    include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_cmsis_dsp/arm_cmsis_dsp.cmake)
     # use the device family to set a cache variable for ARM Cortex Mx family here
     set (ARMCMSIS_DEVICE ARM$ENV{CORTEX_TYPE} CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
     cmake_print_variables(ARMCMSIS_DEVICE)
