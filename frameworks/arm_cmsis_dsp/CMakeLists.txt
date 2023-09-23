@@ -53,6 +53,10 @@ set(CMSIS_DSP_Source_DistanceFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Sour
 set(CMSIS_DSP_Source_InterpolationFunctions_PATH    ${cmsis_dsp_SOURCE_DIR}/Source/InterpolationFunctions)
 set(CMSIS_DSP_Source_WindowFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/WindowFunctions)
 
+
+# set public headers as a globbed function
+file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include/*.h)
+
 target_sources(${PROJECT_NAME}
     PRIVATE
     ${BasicMathFunctions_SOURCES}
@@ -61,25 +65,27 @@ target_sources(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${cmsis_dsp_SOURCE_DIR}/../cmsis-src/CMSIS/Core/Include
+    PRIVATE
+        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
-        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/CMSISDSP>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
 
 include(${cmsis_dsp_SOURCE_DIR}/Source/configDsp.cmake)
 
 configDsp(${PROJECT_NAME})
 
-target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-        cmsis
-)
-
 write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
     VERSION       ${GITHUB_BRANCH_CMSIS_DSP}
     COMPATIBILITY SameMajorVersion
+)
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        PUBLIC_HEADER "${${PROJECT_NAME}_PUBLIC_HEADERS}"
 )
 
 ## Target installation
@@ -87,6 +93,7 @@ install(TARGETS   ${PROJECT_NAME}
     EXPORT        ${PROJECT_NAME}Targets
     ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME       DESTINATION ${CMAKE_INSTALL_BINDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
     COMPONENT     library
 )
