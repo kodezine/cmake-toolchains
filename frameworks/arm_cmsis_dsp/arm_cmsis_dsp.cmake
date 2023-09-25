@@ -18,11 +18,8 @@ FetchContent_GetProperties(cmsis_dsp)
 if(NOT cmsis_dsp_POPULATED)
     FetchContent_Populate(cmsis_dsp)
 
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/cmsis_dspConfig.cmake ${cmsis_dsp_SOURCE_DIR}/CMSISDSPConfig.cmake COPYONLY)
+    configure_file(${CMAKE_CURRENT_LIST_DIR}/cmsis_dspConfig.cmake ${cmsis_dsp_SOURCE_DIR}/cmsis_dspConfig.cmake COPYONLY)
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR})
-
-
-
 endif()
     # BANSHI specific CMSIS customization, helps to limit the tables to be imported to the flash memory
 #    set(BASICMATH "ON"        CACHE BOOL "CMSIS-DSP basic math functions")

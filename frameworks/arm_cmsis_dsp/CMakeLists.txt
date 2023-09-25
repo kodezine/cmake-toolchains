@@ -31,7 +31,8 @@ option(LAXVECTORCONVERSIONS "Lax vector conversions" ON)
 # Includes ---------------------------------------------------------------------
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-
+find_package(cmsis)
+cmake_print_variables(cmsis_SOURCE_DIR)
 add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
@@ -67,6 +68,7 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 
     PRIVATE
+        ${cmsis_SOURCE_DIR}/include/cmsis
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>

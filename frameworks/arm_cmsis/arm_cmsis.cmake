@@ -11,12 +11,11 @@ if ($ENV{USE_PRECOMPILED_LIBS})
         ${libName}                             # Recommendation: Stick close to the original name.
         DOWNLOAD_EXTRACT_TIMESTAMP TRUE
         URL https://github.com/kodezine/cmsis-v5/releases/download/v0.1.0/${libName}-${GITHUB_BRANCH_CMSIS}-$ENV{CORTEX_TYPE}-${CMAKE_C_COMPILER_ID}-${CMAKE_C_COMPILER_VERSION}.tar.gz
-        URL_HASH SHA3_256=${GITHUB_BRANCH_CMSIS_SHA3_256}
+        #URL_HASH SHA3_256=${GITHUB_BRANCH_CMSIS_SHA3_256}
         FIND_PACKAGE_ARGS NAMES ${libName}
     )
-    #FetchContent_MakeAvailable(${libName})
+    FetchContent_MakeAvailable(${libName})
     message(STATUS "${libName}: Successfully extracted precompiled library from GitHub")
-
 else ()
     set(GITHUB_BRANCH_CMSIS "5.9.0")
     set(GITHUB_BRANCH_CMSIS_MD5 "6b67968b5a3540156a4bd772d899339e")
