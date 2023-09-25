@@ -1,11 +1,15 @@
-cmake_minimum_required (VERSION 3.22)
+if (${PROJECT_NAME} STREQUAL cmsis_dsp)
 
-project(
-    cmsis_dsp
-    VERSION ${GITHUB_BRANCH_CMSIS_DSP}
-    LANGUAGES C
-    DESCRIPTION "CMSIS DSP made from scratch"
-)
+else ()
+    cmake_minimum_required(VERSION 3.27)
+
+    project(
+        cmsis_dsp
+        VERSION ${GITHUB_BRANCH_CMSIS_DSP}
+        LANGUAGES C
+        DESCRIPTION "CMSIS DSP made from scratch"
+    )
+endif ()
 
 option(NEON "Neon acceleration" OFF)
 option(NEONEXPERIMENTAL "Neon experimental acceleration" OFF)
@@ -31,8 +35,9 @@ option(LAXVECTORCONVERSIONS "Lax vector conversions" ON)
 # Includes ---------------------------------------------------------------------
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+
 find_package(cmsis)
-cmake_print_variables(cmsis_SOURCE_DIR)
+
 add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
@@ -54,7 +59,6 @@ set(CMSIS_DSP_Source_DistanceFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Sour
 set(CMSIS_DSP_Source_InterpolationFunctions_PATH    ${cmsis_dsp_SOURCE_DIR}/Source/InterpolationFunctions)
 set(CMSIS_DSP_Source_WindowFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/WindowFunctions)
 
-
 # set public headers as a globbed function
 file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include/*.h)
 
@@ -68,7 +72,7 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 
     PRIVATE
-        ${cmsis_SOURCE_DIR}/include/cmsis
+        $<IF:$ENV{USE_PRECOMPILED_LIBS}, ${cmsis_BIN_DIR}/include/cmsis, ${cmsis_SOURCE_DIR}/CMSIS/Core/Include>
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>

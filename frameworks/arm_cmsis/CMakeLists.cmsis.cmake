@@ -1,7 +1,7 @@
 if (${PROJECT_NAME} STREQUAL cmsis)
 
 else ()
-    cmake_minimum_required(VERSION 3.22)
+    cmake_minimum_required(VERSION 3.27)
 
     project(cmsis
         VERSION ${GITHUB_BRANCH_CMSIS}
