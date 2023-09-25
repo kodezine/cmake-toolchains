@@ -1,10 +1,14 @@
-cmake_minimum_required(VERSION 3.22)
+if (${PROJECT_NAME} STREQUAL cmsis)
 
-project(cmsis
-    VERSION ${GITHUB_BRANCH_CMSIS}
-    LANGUAGES C
-    DESCRIPTION "Header only library for CMSIS"
-)
+else ()
+    cmake_minimum_required(VERSION 3.22)
+
+    project(cmsis
+        VERSION ${GITHUB_BRANCH_CMSIS}
+        LANGUAGES C
+        DESCRIPTION "Header only library for CMSIS"
+    )
+endif ()
 
 # Main target ------------------------------------------------------------------
 add_library(${PROJECT_NAME} INTERFACE)
@@ -93,15 +97,3 @@ install(FILES   ${PROJECT_NAME}Config.cmake
                 ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
-
-set(CPACK_BINARY_TGZ "ON")
-set(CPACK_BINARY_ZIP "OFF")
-set(CPACK_BINARY_ZIP "OFF")
-set(CPACK_BINARY_NSIS "OFF")
-set(CPACK_SOURCE_IGNORE_FILES
-  \\.git/
-  build/
-  ".*~$"
-)
-set(CPACK_VERBATIM_VARIABLES YES)
-include(CPack)

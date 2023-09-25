@@ -1,22 +1,45 @@
 include(CMakePrintHelpers)
 include(FetchContent)
 
-set(GITHUB_BRANCH_CMSIS "5.9.0")
-set(GITHUB_BRANCH_CMSIS_MD5 "6b67968b5a3540156a4bd772d899339e")
-cmake_print_variables(GITHUB_BRANCH_CMSIS)
+set(libName "cmsis")
 
-FetchContent_Declare(
-    cmsis                             # Recommendation: Stick close to the original name.
-    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-    URL https://github.com/ARM-software/CMSIS_5/archive/refs/tags/${GITHUB_BRANCH_CMSIS}.tar.gz
-    URL_HASH MD5=${GITHUB_BRANCH_CMSIS_MD5}
-)
+if ($ENV{USE_PRECOMPILED_LIBS})
+    set(GITHUB_BRANCH_CMSIS "5.9.0")
+    set(GITHUB_BRANCH_CMSIS_SHA3_256 "2b506bef5d4f04cd21e878d30700348a9f3f37bdd47edbc1d7c29d8d01bc324a")
 
-FetchContent_GetProperties(cmsis)
+    FetchContent_Declare(
+        ${libName}                             # Recommendation: Stick close to the original name.
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+        URL https://github.com/ARM-software/CMSIS_5/archive/refs/tags/${libName}-${GITHUB_BRANCH_CMSIS}-$ENV{CORTEX_TYPE}-${CMAKE_C_COMPILER_ID}-${CMAKE_C_COMPILER_VERSION}.tar.gz
+        URL_HASH SHA3_256=${GITHUB_BRANCH_CMSIS_SHA3_256}
+        FIND_PACKAGE_ARGS NAMES ${libName}
+    )
 
-if(NOT cmsis_POPULATED)
-    FetchContent_Populate(cmsis)
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/cmsisConfig.cmake ${cmsis_SOURCE_DIR}/cmsisConfig.cmake COPYONLY)
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/CMakeLists.cmsis.cmake ${cmsis_SOURCE_DIR}/CMakeLists.txt COPYONLY)
-    add_subdirectory(${cmsis_SOURCE_DIR})
+    FetchContent_GetProperties(${libName})
+
+    if(NOT ${libName}_POPULATED)
+        FetchContent_Populate(${libName})
+        message(STATUS "${libName}: Successfully extracted precompiled library from GitHub")
+    endif()
+else ()
+    set(GITHUB_BRANCH_CMSIS "5.9.0")
+    set(GITHUB_BRANCH_CMSIS_MD5 "6b67968b5a3540156a4bd772d899339e")
+
+    FetchContent_Declare(
+        ${libName}                             # Recommendation: Stick close to the original name.
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+        URL https://github.com/ARM-software/CMSIS_5/archive/refs/tags/${GITHUB_BRANCH_CMSIS}.tar.gz
+        URL_HASH MD5=${GITHUB_BRANCH_CMSIS_MD5}
+        FIND_PACKAGE_ARGS NAMES ${libName}
+    )
+
+    FetchContent_GetProperties(${libName})
+
+    if(NOT ${libName}_POPULATED)
+        FetchContent_Populate(${libName})
+        configure_file(${CMAKE_CURRENT_LIST_DIR}/${libName}Config.cmake ${${libName}_SOURCE_DIR}/${libName}Config.cmake COPYONLY)
+        configure_file(${CMAKE_CURRENT_LIST_DIR}/CMakeLists.${libName}.cmake ${${libName}_SOURCE_DIR}/CMakeLists.txt COPYONLY)
+        add_subdirectory(${${libName}_SOURCE_DIR})
+        message(STATUS "${libName}: Successfully extracted sources for static library from GitHub")
+    endif()
 endif()
