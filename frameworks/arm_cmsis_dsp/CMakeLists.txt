@@ -65,14 +65,18 @@ target_sources(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        ${cmsis_dsp_SOURCE_DIR}/../cmsis-src/CMSIS/Core/Include
+
     PRIVATE
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
+)
+
+target_link_libraries(${PROJECT_NAME}
+    INTERFACE
+        cmsis
 )
 
 include(${cmsis_dsp_SOURCE_DIR}/Source/configDsp.cmake)
