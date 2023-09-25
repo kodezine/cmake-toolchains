@@ -36,3 +36,6 @@ set(ComplexMathFunctions_SOURCES
     $<$<BOOL:${ArmAC5}>:${CMSIS_DSP_Source_ComplexMathFunctions_PATH}/arm_cmplx_mult_cmplx_f16.c>
     $<$<BOOL:${ArmAC5}>:${CMSIS_DSP_Source_ComplexMathFunctions_PATH}/arm_cmplx_mult_real_f16.c>
 )
+
+# Unset the variable here
+set(ArmAC5)

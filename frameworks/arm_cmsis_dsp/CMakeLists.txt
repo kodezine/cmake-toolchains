@@ -9,7 +9,13 @@ else ()
         LANGUAGES C
         DESCRIPTION "CMSIS DSP made from scratch"
     )
-endif ()
+endif()
+
+if($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
+    set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/include/cmsis")
+else()
+    set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/CMSIS/Core/Include")
+endif()
 
 option(NEON "Neon acceleration" OFF)
 option(NEONEXPERIMENTAL "Neon experimental acceleration" OFF)
@@ -42,17 +48,19 @@ add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
 include(helper/BasicMathFunctions.cmake)
+include(helper/BayesFunctions.cmake)
+include(helper/CommonTables.cmake)
 include(helper/ComplexMathFunctions.cmake)
+include(helper/ControllerFunctions.cmake)
+include(helper/DistanceFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 
-set(CMSIS_DSP_Source_ControllerFunctions_PATH       ${cmsis_dsp_SOURCE_DIR}/Source/ControllerFunctions)
 set(CMSIS_DSP_Source_FastMathFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Source/FastMathFunctions)
 set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
 set(CMSIS_DSP_Source_MatrixFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/MatrixFunctions)
 set(CMSIS_DSP_Source_StatisticsFunctions_PATH       ${cmsis_dsp_SOURCE_DIR}/Source/StatisticsFunctions)
 set(CMSIS_DSP_Source_SupportFunctions_PATH          ${cmsis_dsp_SOURCE_DIR}/Source/SupportFunctions)
 set(CMSIS_DSP_Source_TransformFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/TransformFunctions)
-set(CMSIS_DSP_Source_CommonTables_PATH              ${cmsis_dsp_SOURCE_DIR}/Source/CommonTables)
 set(CMSIS_DSP_Source_SVMFunctions_PATH              ${cmsis_dsp_SOURCE_DIR}/Source/SVMFunctions)
 set(CMSIS_DSP_Source_BayesFunctions_PATH            ${cmsis_dsp_SOURCE_DIR}/Source/BayesFunctions)
 set(CMSIS_DSP_Source_DistanceFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Source/DistanceFunctions)
@@ -65,17 +73,77 @@ file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include
 target_sources(${PROJECT_NAME}
     PRIVATE
     ${BasicMathFunctions_SOURCES}
+    ${BayesFunctions_SOURCES}
+    ${CommonTables_SOURCES}
+    ${ControllerFunctions_SOURCES}
     ${ComplexMathFunctions_SOURCES}
+    ${DistanceFunctions_SOURCES}
     ${QuaternionMathFunctions_SOURCES}
+)
+
+# Target sources for importing headers for this static library
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        FILE_SET cmsis_dsp_Headers
+        TYPE HEADERS
+        BASE_DIRS ${cmsis_dsp_SOURCE_DIR}/Include
+        FILES
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_common_tables_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_common_tables.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_const_structs_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_const_structs.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_helium_utils.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_memory.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_types_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_types.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_mve_tables_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_mve_tables.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_vec_math_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/arm_vec_math.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/basic_math_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/basic_math_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/bayes_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/bayes_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/complex_math_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/complex_math_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/controller_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/controller_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/debug.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/distance_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/distance_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/fast_math_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/fast_math_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/filtering_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/filtering_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/interpolation_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/interpolation_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_utils.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/none.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/quaternion_math_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/statistics_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/statistics_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/support_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/support_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_defines.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/transform_functions.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/transform_functions_f16.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/utils.h
+            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/window_functions.h
 )
 
 target_include_directories(${PROJECT_NAME}
 
     PRIVATE
-        $<IF:$ENV{USE_PRECOMPILED_LIBS}, ${cmsis_BIN_DIR}/include/cmsis, ${cmsis_SOURCE_DIR}/CMSIS/Core/Include>
-        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
+        ${CMSIS_INCLUDE_PATH}
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
+        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
@@ -93,19 +161,16 @@ write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
     VERSION       ${GITHUB_BRANCH_CMSIS_DSP}
     COMPATIBILITY SameMajorVersion
 )
-set_target_properties(${PROJECT_NAME}
-    PROPERTIES
-        PUBLIC_HEADER "${${PROJECT_NAME}_PUBLIC_HEADERS}"
-)
 
 ## Target installation
-install(TARGETS   ${PROJECT_NAME}
-    EXPORT        ${PROJECT_NAME}Targets
-    ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME       DESTINATION ${CMAKE_INSTALL_BINDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
-    COMPONENT     library
+install(TARGETS     ${PROJECT_NAME}
+    EXPORT          ${PROJECT_NAME}Targets
+    FILE_SET        cmsis_dsp_Headers
+    ARCHIVE         DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY         DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME         DESTINATION ${CMAKE_INSTALL_BINDIR}
+    PUBLIC_HEADER   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+    COMPONENT       library
 )
 
 ## Target's cmake files: targets export
