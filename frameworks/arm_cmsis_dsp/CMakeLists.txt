@@ -60,17 +60,7 @@ include(helper/MatrixFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 include(helper/StatisticsFunctions.cmake)
 include(helper/SupportFunctions.cmake)
-
-set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
-set(CMSIS_DSP_Source_MatrixFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/MatrixFunctions)
-set(CMSIS_DSP_Source_StatisticsFunctions_PATH       ${cmsis_dsp_SOURCE_DIR}/Source/StatisticsFunctions)
-set(CMSIS_DSP_Source_SupportFunctions_PATH          ${cmsis_dsp_SOURCE_DIR}/Source/SupportFunctions)
-set(CMSIS_DSP_Source_TransformFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/TransformFunctions)
-set(CMSIS_DSP_Source_SVMFunctions_PATH              ${cmsis_dsp_SOURCE_DIR}/Source/SVMFunctions)
-set(CMSIS_DSP_Source_BayesFunctions_PATH            ${cmsis_dsp_SOURCE_DIR}/Source/BayesFunctions)
-set(CMSIS_DSP_Source_DistanceFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Source/DistanceFunctions)
-set(CMSIS_DSP_Source_InterpolationFunctions_PATH    ${cmsis_dsp_SOURCE_DIR}/Source/InterpolationFunctions)
-set(CMSIS_DSP_Source_WindowFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/WindowFunctions)
+include(helper/SVMFunctions.cmake)
 
 # set public headers as a globbed function
 file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include/*.h)
@@ -90,6 +80,7 @@ target_sources(${PROJECT_NAME}
     ${QuaternionMathFunctions_SOURCES}
     ${StatisticsFunctions_SOURCES}
     ${SupportFunctions_SOURCES}
+    ${SVMFunctions_SOURCES}
 )
 
 # Target sources for importing headers for this static library
