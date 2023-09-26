@@ -59,6 +59,7 @@ include(helper/InterpolationFunctions.cmake)
 include(helper/MatrixFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 include(helper/StatisticsFunctions.cmake)
+include(helper/SupportFunctions.cmake)
 
 set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
 set(CMSIS_DSP_Source_MatrixFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/MatrixFunctions)
@@ -88,6 +89,7 @@ target_sources(${PROJECT_NAME}
     ${MatrixFunctions_SOURCES}
     ${QuaternionMathFunctions_SOURCES}
     ${StatisticsFunctions_SOURCES}
+    ${SupportFunctions_SOURCES}
 )
 
 # Target sources for importing headers for this static library
@@ -150,6 +152,7 @@ target_include_directories(${PROJECT_NAME}
 
     PRIVATE
         ${CMSIS_INCLUDE_PATH}
+        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/PrivateInclude>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
