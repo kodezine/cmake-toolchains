@@ -56,6 +56,7 @@ include(helper/DistanceFunctions.cmake)
 include(helper/FastMathFunctions.cmake)
 include(helper/FilteringFunctions.cmake)
 include(helper/InterpolationFunctions.cmake)
+include(helper/MatrixFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 
 set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
@@ -83,6 +84,7 @@ target_sources(${PROJECT_NAME}
     ${FastMathFunctions_SOURCES}
     ${FilteringFunctions_SOURCES}
     ${InterpolationFunctions_SOURCES}
+    ${MatrixFunctions_SOURCES}
     ${QuaternionMathFunctions_SOURCES}
 )
 
