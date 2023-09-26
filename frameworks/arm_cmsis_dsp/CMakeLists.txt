@@ -61,6 +61,7 @@ include(helper/QuaternionMathFunctions.cmake)
 include(helper/StatisticsFunctions.cmake)
 include(helper/SupportFunctions.cmake)
 include(helper/SVMFunctions.cmake)
+include(helper/TransformFunctions.cmake)
 
 # set public headers as a globbed function
 file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include/*.h)
@@ -81,6 +82,7 @@ target_sources(${PROJECT_NAME}
     ${StatisticsFunctions_SOURCES}
     ${SupportFunctions_SOURCES}
     ${SVMFunctions_SOURCES}
+    ${TransformFunctions_SOURCES}
 )
 
 # Target sources for importing headers for this static library
