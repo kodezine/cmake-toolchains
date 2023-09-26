@@ -54,6 +54,7 @@ include(helper/ComplexMathFunctions.cmake)
 include(helper/ControllerFunctions.cmake)
 include(helper/DistanceFunctions.cmake)
 include(helper/FastMathFunctions.cmake)
+include(helper/FilteringFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 
 set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
@@ -79,6 +80,7 @@ target_sources(${PROJECT_NAME}
     ${ComplexMathFunctions_SOURCES}
     ${DistanceFunctions_SOURCES}
     ${FastMathFunctions_SOURCES}
+    ${FilteringFunctions_SOURCES}
     ${QuaternionMathFunctions_SOURCES}
 )
 

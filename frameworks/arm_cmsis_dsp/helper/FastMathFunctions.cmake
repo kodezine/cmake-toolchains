@@ -32,6 +32,3 @@ set(FastMathFunctions_SOURCES
 )
 
 set(ArmAC5)
-
-
-
