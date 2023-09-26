@@ -53,9 +53,9 @@ include(helper/CommonTables.cmake)
 include(helper/ComplexMathFunctions.cmake)
 include(helper/ControllerFunctions.cmake)
 include(helper/DistanceFunctions.cmake)
+include(helper/FastMathFunctions.cmake)
 include(helper/QuaternionMathFunctions.cmake)
 
-set(CMSIS_DSP_Source_FastMathFunctions_PATH         ${cmsis_dsp_SOURCE_DIR}/Source/FastMathFunctions)
 set(CMSIS_DSP_Source_FilteringFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
 set(CMSIS_DSP_Source_MatrixFunctions_PATH           ${cmsis_dsp_SOURCE_DIR}/Source/MatrixFunctions)
 set(CMSIS_DSP_Source_StatisticsFunctions_PATH       ${cmsis_dsp_SOURCE_DIR}/Source/StatisticsFunctions)
@@ -78,6 +78,7 @@ target_sources(${PROJECT_NAME}
     ${ControllerFunctions_SOURCES}
     ${ComplexMathFunctions_SOURCES}
     ${DistanceFunctions_SOURCES}
+    ${FastMathFunctions_SOURCES}
     ${QuaternionMathFunctions_SOURCES}
 )
 
