@@ -13,6 +13,8 @@ endif()
 
 if($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
     set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/include/cmsis")
+
+    find_package(cmsis)
 else()
     set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/CMSIS/Core/Include")
 endif()
@@ -41,8 +43,6 @@ option(LAXVECTORCONVERSIONS "Lax vector conversions" ON)
 # Includes ---------------------------------------------------------------------
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-
-find_package(cmsis)
 
 add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
