@@ -9,15 +9,16 @@ else ()
         LANGUAGES C
         DESCRIPTION "CMSIS DSP made from scratch"
     )
-endif()
+endif ()
 
-if($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
-    set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/include/cmsis")
-
+if ($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
     find_package(cmsis)
-else()
-    set(CMSIS_INCLUDE_PATH "${cmsis_SOURCE_DIR}/CMSIS/Core/Include")
-endif()
+endif ()
+
+# Check for a valid CMSIS_INCLUDE_PATH is set
+if (DEFINED CMSIS_INCLUDE_PATH)
+    cmake_print_variables(CMSIS_INCLUDE_PATH)
+endif ()
 
 option(NEON "Neon acceleration" OFF)
 option(NEONEXPERIMENTAL "Neon experimental acceleration" OFF)
