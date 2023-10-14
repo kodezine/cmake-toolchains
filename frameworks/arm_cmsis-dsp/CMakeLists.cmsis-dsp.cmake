@@ -10,7 +10,6 @@ else ()
     )
 endif ()
 
-# Check for a valid CMSIS_INCLUDE_PATH is set
 cmake_print_variables(cmsis-v5_CORE_INCLUDE_PATH cmsis-v5_DEVICE_INCLUDE_PATH)
 
 option(NEON "Neon acceleration" OFF)
@@ -41,25 +40,25 @@ include(CMakePackageConfigHelpers)
 add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
-include(helper/BasicMathFunctions.cmake)
-include(helper/BayesFunctions.cmake)
-include(helper/CommonTables.cmake)
-include(helper/ComplexMathFunctions.cmake)
-include(helper/ControllerFunctions.cmake)
-include(helper/DistanceFunctions.cmake)
-include(helper/FastMathFunctions.cmake)
-include(helper/FilteringFunctions.cmake)
-include(helper/InterpolationFunctions.cmake)
-include(helper/MatrixFunctions.cmake)
-include(helper/QuaternionMathFunctions.cmake)
-include(helper/StatisticsFunctions.cmake)
-include(helper/SupportFunctions.cmake)
-include(helper/SVMFunctions.cmake)
-include(helper/TransformFunctions.cmake)
-include(helper/WindowFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/BasicMathFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/BayesFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/CommonTables.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/ComplexMathFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/ControllerFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/DistanceFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/FastMathFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/FilteringFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/InterpolationFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/MatrixFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/QuaternionMathFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/StatisticsFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/SupportFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/SVMFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/TransformFunctions.cmake)
+include(${cmake-toolchains_SOURCE_DIR}/frameworks/arm_${PROJECT_NAME}/helper/WindowFunctions.cmake)
 
 # set public headers as a globbed function
-file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${cmsis_dsp_SOURCE_DIR}/Include/*.h)
+file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${${PROJECT_NAME}_SOURCE_DIR}/Include/*.h)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
@@ -84,57 +83,57 @@ target_sources(${PROJECT_NAME}
 # Target sources for importing headers for this static library
 target_sources(${PROJECT_NAME}
     PUBLIC
-        FILE_SET cmsis_dsp_Headers
+        FILE_SET ${PROJECT_NAME}_Headers
         TYPE HEADERS
-        BASE_DIRS ${cmsis_dsp_SOURCE_DIR}/Include
+        BASE_DIRS ${${PROJECT_NAME}_SOURCE_DIR}/Include
         FILES
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_common_tables_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_common_tables.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_const_structs_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_const_structs.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_helium_utils.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_memory.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_types_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math_types.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_math.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_mve_tables_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_mve_tables.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_vec_math_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/arm_vec_math.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/basic_math_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/basic_math_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/bayes_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/bayes_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/complex_math_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/complex_math_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/controller_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/controller_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/debug.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/distance_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/distance_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/fast_math_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/fast_math_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/filtering_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/filtering_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/interpolation_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/interpolation_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/matrix_utils.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/none.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/quaternion_math_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/statistics_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/statistics_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/support_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/support_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_defines.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/svm_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/transform_functions.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/transform_functions_f16.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/utils.h
-            ${cmsis_dsp_SOURCE_DIR}/Include/dsp/window_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_common_tables_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_common_tables.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_const_structs_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_const_structs.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_helium_utils.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_math_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_math_memory.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_math_types_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_math_types.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_math.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_mve_tables_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_mve_tables.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_vec_math_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/arm_vec_math.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/basic_math_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/basic_math_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/bayes_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/bayes_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/complex_math_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/complex_math_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/controller_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/controller_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/debug.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/distance_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/distance_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/fast_math_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/fast_math_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/filtering_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/filtering_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/interpolation_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/interpolation_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/matrix_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/matrix_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/matrix_utils.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/none.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/quaternion_math_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/statistics_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/statistics_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/support_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/support_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/svm_defines.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/svm_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/svm_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/transform_functions.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/transform_functions_f16.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/utils.h
+            ${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp/window_functions.h
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -142,20 +141,20 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${cmsis-v5_CORE_INCLUDE_PATH}
         ${cmsis-v5_DEVICE_INCLUDE_PATH}
-        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/PrivateInclude>
+        $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/PrivateInclude>
     PUBLIC
-        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
-        $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include/dsp>
+        $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/Include>
+        $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/Include/dsp>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
 
 target_link_libraries(${PROJECT_NAME}
     INTERFACE
-        cmsis
+        cmsis-v5
 )
 
-include(${cmsis_dsp_SOURCE_DIR}/Source/configDsp.cmake)
+include(${${PROJECT_NAME}_SOURCE_DIR}/Source/configDsp.cmake)
 
 configDsp(${PROJECT_NAME})
 
@@ -167,7 +166,7 @@ write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
 ## Target installation
 install(TARGETS     ${PROJECT_NAME}
     EXPORT          ${PROJECT_NAME}Targets
-    FILE_SET        cmsis_dsp_Headers
+    FILE_SET        ${PROJECT_NAME}_Headers
     ARCHIVE         DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY         DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME         DESTINATION ${CMAKE_INSTALL_BINDIR}
