@@ -17,11 +17,14 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 # set public headers as a globbed function
-file(GLOB ${PROJECT_NAME}_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS/Core/Include/*.h)
+file(GLOB ${PROJECT_NAME}_Device_Headers ${CMAKE_CURRENT_SOURCE_DIR}/Device/ARM/ARM$ENV{CORTEX_TYPE}/Include/*.h)
+file(GLOB ${PROJECT_NAME}_Core_Headers ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS/Core/Include/*.h)
+set(${PROJECT_NAME}_PUBLIC_HEADERS ${${PROJECT_NAME}_Device_Headers} ${${PROJECT_NAME}_Core_Headers})
 
 target_include_directories(${PROJECT_NAME}
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/CMSIS/Core/Include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Device/ARM/ARM$ENV{CORTEX_TYPE}/Include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
@@ -71,27 +74,27 @@ target_compile_options(${PROJECT_NAME}
 )
 
 write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
-    VERSION       ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
+    VERSION         ${PROJECT_VERSION}
+    COMPATIBILITY   SameMajorVersion
 )
 
 ## Target installation
-install(TARGETS   ${PROJECT_NAME}
-    EXPORT        ${PROJECT_NAME}Targets
-    ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
-    COMPONENT     library
+install(TARGETS     ${PROJECT_NAME}
+    EXPORT          ${PROJECT_NAME}Targets
+    ARCHIVE         DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY         DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+    COMPONENT       library
 )
 
 ## Target's cmake files: targets export
-install(EXPORT  ${PROJECT_NAME}Targets
-    NAMESPACE   ${PROJECT_NAME}::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+install(EXPORT      ${PROJECT_NAME}Targets
+    NAMESPACE       ${PROJECT_NAME}::
+    DESTINATION     ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 ## Target's cmake files: config and version config for find_package()
-install(FILES   ${PROJECT_NAME}Config.cmake
-                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+install(FILES       ${PROJECT_NAME}Config.cmake
+                    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    DESTINATION     ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
