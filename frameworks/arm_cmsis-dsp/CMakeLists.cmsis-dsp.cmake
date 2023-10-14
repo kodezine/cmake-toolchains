@@ -1,24 +1,17 @@
-if (${PROJECT_NAME} STREQUAL cmsis_dsp)
+if (${PROJECT_NAME} STREQUAL cmsis-dsp)
 
 else ()
     cmake_minimum_required(VERSION 3.27)
-
     project(
-        cmsis_dsp
-        VERSION ${GITHUB_BRANCH_CMSIS_DSP}
+        cmsis-dsp
+        VERSION ${GITHUB_BRANCH_cmsis-dsp}
         LANGUAGES C
         DESCRIPTION "CMSIS DSP made from scratch"
     )
 endif ()
 
-if ($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
-    find_package(cmsis)
-endif ()
-
 # Check for a valid CMSIS_INCLUDE_PATH is set
-if (DEFINED CMSIS_INCLUDE_PATH)
-    cmake_print_variables(CMSIS_INCLUDE_PATH)
-endif ()
+cmake_print_variables(cmsis-v5_CORE_INCLUDE_PATH cmsis-v5_DEVICE_INCLUDE_PATH)
 
 option(NEON "Neon acceleration" OFF)
 option(NEONEXPERIMENTAL "Neon experimental acceleration" OFF)
@@ -147,7 +140,8 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 
     PRIVATE
-        ${CMSIS_INCLUDE_PATH}
+        ${cmsis-v5_CORE_INCLUDE_PATH}
+        ${cmsis-v5_DEVICE_INCLUDE_PATH}
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/PrivateInclude>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
