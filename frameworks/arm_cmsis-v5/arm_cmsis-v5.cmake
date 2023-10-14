@@ -16,8 +16,8 @@ if (DEFINED PRECOMPILED_TAG_${libName})
     FetchContent_MakeAvailable(${libName})
     find_package(${libName})
     # export the two includes
-    set(${libName}_CORE_INCLUDE_PATH "${${libName}_SOURCE_DIR}/include/cmsis" CACHE PATH "Path to the cmsis v5 includes")
-    set(${libName}_DEVICE_INCLUDE_PATH "${${libName}_SOURCE_DIR}/include/cmsis" CACHE PATH "Path to the cmsis v5 device folder")
+    set(${libName}_CORE_INCLUDE_PATH "${${libName}_SOURCE_DIR}/include/${libName}" CACHE PATH "Path to the cmsis v5 includes")
+    set(${libName}_DEVICE_INCLUDE_PATH "${${libName}_SOURCE_DIR}/include/${libName}" CACHE PATH "Path to the cmsis v5 device folder")
 else ()
     message(STATUS "${libName}: Compile from source")
     FetchContent_Declare(
