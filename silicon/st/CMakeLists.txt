@@ -6,15 +6,18 @@ project(
     DESCRIPTION "Hardware Abstraction Layer for ${STM32_DEVICE}"
 )
 
-if(NOT (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm"))
+if (NOT (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm"))
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a suitable ARM cross compiler; no target build.")
-endif()
-if(NOT DEFINED STM32_DEVICE)
+endif ()
+if (NOT DEFINED STM32_DEVICE)
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a STM32 device definition")
-endif()
-if(NOT DEFINED ARMCMSIS_DEVICE)
+endif ()
+if (NOT DEFINED ARMCMSIS_DEVICE)
     message(FATAL_ERROR "${PROJECT_NAME} can only compile with a valid ARMCMx definition")
-endif()
+endif ()
+if ((NOT DEFINED cmsis-v5_CORE_INCLUDE_PATH) OR (NOT DEFINED cmsis-v5_DEVICE_INCLUDE_PATH))
+    message(FATAL_ERROR "${PROJECT_NAME} can only compile if cmsis-v5 is found")
+endif ()
 
 # Check for valid paths to Cube Drivers used in this file
 if((NOT EXISTS ${st_CMSIS_DIR}) OR (NOT EXISTS ${st_HAL_Driver_DIR}))
@@ -31,8 +34,6 @@ else()
     configure_file(${STM32_HAL_CONFIGURATION} ${st_HAL_Driver_DIR}/Inc/stm32${LOWERCASE_STM32_TYPE}xx_hal_conf.h COPYONLY)
 endif()
 
-set(cmsis_DEVICE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/Device/ARM/${ARMCMSIS_DEVICE}/Include" CACHE STRING "Path to ARM Device from standard CMSIS")
-set(cmsis_CORE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/CMSIS/Core/Include" CACHE STRING "Path to CMSIS core includes")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -63,8 +64,8 @@ target_sources(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        $<BUILD_INTERFACE:${cmsis_CORE_INCLUDE_DIR}>
-        $<BUILD_INTERFACE:${cmsis_DEVICE_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${cmsis-v5_CORE_INCLUDE_PATH}>
+        $<BUILD_INTERFACE:${cmsis-v5_DEVICE_INCLUDE_PATH}>
         $<BUILD_INTERFACE:${st_HAL_DRV_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${st_HAL_DRV_INCLUDE_LEGACY_DIR}>
         $<BUILD_INTERFACE:${st_CMSIS_DRV_INCLUDE_DIR}>
@@ -94,7 +95,7 @@ write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    cmsis
+    cmsis-v5
 )
 
 setTargetCompileOptions(PROJECT_NAME)
