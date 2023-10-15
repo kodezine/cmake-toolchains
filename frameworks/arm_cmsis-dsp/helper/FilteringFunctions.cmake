@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_FilteringFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/FilteringFunctions)
+set(CMSIS_DSP_Source_FilteringFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/FilteringFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

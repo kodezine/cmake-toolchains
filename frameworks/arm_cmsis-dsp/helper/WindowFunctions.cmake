@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_WindowFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/WindowFunctions)
+set(CMSIS_DSP_Source_WindowFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/WindowFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

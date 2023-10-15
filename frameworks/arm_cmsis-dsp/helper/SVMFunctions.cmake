@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_SVMFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/SVMFunctions)
+set(CMSIS_DSP_Source_SVMFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/SVMFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_StatisticsFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/StatisticsFunctions)
+set(CMSIS_DSP_Source_StatisticsFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/StatisticsFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

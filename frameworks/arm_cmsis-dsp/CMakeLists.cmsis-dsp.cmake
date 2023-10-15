@@ -83,7 +83,7 @@ target_sources(${PROJECT_NAME}
 # Target sources for importing headers for this static library
 target_sources(${PROJECT_NAME}
     PUBLIC
-        FILE_SET ${PROJECT_NAME}_Headers
+        FILE_SET cmsis-dsp_Headers
         TYPE HEADERS
         BASE_DIRS ${${PROJECT_NAME}_SOURCE_DIR}/Include
         FILES

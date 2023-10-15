@@ -1,6 +1,6 @@
 
 # Path to the Basic Math Functions
-set(CMSIS_DSP_Source_BasicMathFunctions_PATH        ${cmsis_dsp_SOURCE_DIR}/Source/BasicMathFunctions)
+set(CMSIS_DSP_Source_BasicMathFunctions_PATH        ${cmsis-dsp_SOURCE_DIR}/Source/BasicMathFunctions)
 
 
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

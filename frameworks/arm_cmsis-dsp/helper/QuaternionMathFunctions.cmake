@@ -1,5 +1,5 @@
 # path is set
-set(CMSIS_DSP_Source_QuaternionMathFunctions_PATH   ${cmsis_dsp_SOURCE_DIR}/Source/QuaternionMathFunctions)
+set(CMSIS_DSP_Source_QuaternionMathFunctions_PATH   ${cmsis-dsp_SOURCE_DIR}/Source/QuaternionMathFunctions)
 
 set(QuaternionMathFunctions_SOURCES
     ${CMSIS_DSP_Source_QuaternionMathFunctions_PATH}/arm_quaternion_norm_f32.c

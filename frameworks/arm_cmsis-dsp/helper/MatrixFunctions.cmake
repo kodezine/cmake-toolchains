@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_MatrixFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/MatrixFunctions)
+set(CMSIS_DSP_Source_MatrixFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/MatrixFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

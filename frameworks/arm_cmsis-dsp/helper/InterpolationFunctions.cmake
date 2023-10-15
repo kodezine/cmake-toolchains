@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_InterpolationFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/InterpolationFunctions)
+set(CMSIS_DSP_Source_InterpolationFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/InterpolationFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

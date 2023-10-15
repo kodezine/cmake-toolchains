@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_TransformFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/TransformFunctions)
+set(CMSIS_DSP_Source_TransformFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/TransformFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

@@ -1,4 +1,4 @@
-set(CMSIS_DSP_Source_DistanceFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/DistanceFunctions)
+set(CMSIS_DSP_Source_DistanceFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/DistanceFunctions)
 
 # Set some variables
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))

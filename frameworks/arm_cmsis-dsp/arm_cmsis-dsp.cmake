@@ -5,6 +5,7 @@ set(libName cmsis-dsp)
 set(GITHUB_BRANCH_${libName} "1.15.0")
 message(STATUS "${libName}: ${GITHUB_BRANCH_${libName}}")
 
+# precompilation
 if (DEFINED PRECOMPILED_TAG_${libName})
     message(STATUS "${libName}: Precompiled tag ${PRECOMPILED_TAG_${libName}}")
     FetchContent_Declare(

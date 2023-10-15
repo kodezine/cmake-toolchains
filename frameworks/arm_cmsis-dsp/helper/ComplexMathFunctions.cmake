@@ -1,5 +1,5 @@
 # Path to the Basic Math Functions
-set(CMSIS_DSP_Source_ComplexMathFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/ComplexMathFunctions)
+set(CMSIS_DSP_Source_ComplexMathFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/ComplexMathFunctions)
 
 if ((NOT ARMAC5) AND (NOT DISABLEFLOAT16))
     set(ArmAC5 true)

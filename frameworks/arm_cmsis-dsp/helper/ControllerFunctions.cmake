@@ -1,5 +1,5 @@
 
-set(CMSIS_DSP_Source_ControllerFunctions_PATH      ${cmsis_dsp_SOURCE_DIR}/Source/ControllerFunctions)
+set(CMSIS_DSP_Source_ControllerFunctions_PATH      ${cmsis-dsp_SOURCE_DIR}/Source/ControllerFunctions)
 
 set(ControllerFunctions_SOURCES
     ${CMSIS_DSP_Source_ControllerFunctions_PATH}/arm_pid_init_f32.c
