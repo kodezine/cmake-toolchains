@@ -11,15 +11,6 @@ else ()
     )
 endif ()
 
-if ($ENV{USE_PRECOMPILED_LIBS} STREQUAL "true")
-    find_package(cmsis)
-endif ()
-
-# Check for a valid CMSIS_INCLUDE_PATH is set
-if (DEFINED CMSIS_INCLUDE_PATH)
-    cmake_print_variables(CMSIS_INCLUDE_PATH)
-endif ()
-
 option(NEON "Neon acceleration" OFF)
 option(NEONEXPERIMENTAL "Neon experimental acceleration" OFF)
 option(HELIUMEXPERIMENTAL "Helium experimental acceleration" OFF)
@@ -147,7 +138,8 @@ target_sources(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 
     PRIVATE
-        ${CMSIS_INCLUDE_PATH}
+        ${cmsis-v5_CORE_INCLUDE_PATH}
+        ${cmsis-v5_DEVICE_INCLUDE_PATH}
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/PrivateInclude>
     PUBLIC
         $<BUILD_INTERFACE:${cmsis_dsp_SOURCE_DIR}/Include>
