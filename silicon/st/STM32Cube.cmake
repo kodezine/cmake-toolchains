@@ -18,15 +18,15 @@ if ((${UPPERCASE_STM32_TYPE} STREQUAL "F0") OR (${UPPERCASE_STM32_TYPE} STREQUAL
     cmake_print_variables(GITHUB_BRANCH_${STM32CubeXX})
 
     FetchContent_Declare(
-        cubexx                             # Recommendation: Stick close to the original name.
+        cube${LOWERCASE_STM32_TYPE}                             # Recommendation: Stick close to the original name.
         DOWNLOAD_EXTRACT_TIMESTAMP TRUE
         URL https://github.com/STMicroelectronics/${STM32CubeXX}/archive/refs/tags/${GITHUB_BRANCH_${STM32CubeXX}}.tar.gz
     )
 
-    FetchContent_GetProperties(cubexx)
+    FetchContent_GetProperties(cube${LOWERCASE_STM32_TYPE})
 
-    if(NOT cubexx_POPULATED)
-        FetchContent_Populate(cubexx)
+    if(NOT cube${LOWERCASE_STM32_TYPE}_POPULATED)
+        FetchContent_Populate(cube${LOWERCASE_STM32_TYPE})
     endif()
     # use the device family to set a cache variable for ARM Cortex Mx family here
     set (ARMCMSIS_DEVICE ARM$ENV{CORTEX_TYPE} CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
