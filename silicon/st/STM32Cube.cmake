@@ -35,10 +35,11 @@ else()
     message(FATAL_ERROR "STM Drivers can not be defined ")
 endif()
 
-# Add stm32 drivers for STM32 Device
+# Add stm32 drivers for STM32 Device (used in stm32f0xx.h/stm32h7xx.h)
 if ((${STM32_DEVICE} STREQUAL "STM32F031x6") OR
     (${STM32_DEVICE} STREQUAL "STM32F072xB") OR
-    (${STM32_DEVICE} STREQUAL "STM32H7A3xxQ"))
+    (${STM32_DEVICE} STREQUAL "STM32H7A3xxQ") OR
+    (${STM32_DEVICE} STREQUAL "STM32H743xx"))
     set(st_CMSIS_DIR "${cubexx_SOURCE_DIR}/Drivers/CMSIS" CACHE PATH "Path to STM32CubeXX CMSIS folder")
     set(st_HAL_Driver_DIR "${cubexx_SOURCE_DIR}/Drivers/STM32${UPPERCASE_STM32_TYPE}xx_HAL_Driver" CACHE PATH "Path to STM32CubeXX Drivers folder")
     set(stm32_hal stm32${LOWERCASE_STM32_TYPE}xx_hal CACHE STRING "Prefix for HAL files")
