@@ -3,6 +3,9 @@ include(CMakePrintHelpers)
 # check the environment variable for the supported cortex type
 include(${CMAKE_CURRENT_LIST_DIR}/common/checkCORTEX_TYPE.cmake)
 
+# set factors based on the cortex type defined
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/$ENV{CORTEX_TYPE}.cmake)
+
 # Let's begin with starting the license client tunnel
 execute_process(
     COMMAND /home/build/ARM/license-tunnel.sh

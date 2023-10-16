@@ -3,6 +3,9 @@ include(CMakePrintHelpers)
 # check the environment variable for the supported cortex type
 include(${CMAKE_CURRENT_LIST_DIR}/common/checkCORTEX_TYPE.cmake)
 
+# set factors based on the cortex type defined
+include(${CMAKE_CURRENT_LIST_DIR}/cortex/$ENV{CORTEX_TYPE}.cmake)
+
 # Specify location of toolchain root folder
 message(CHECK_START "Searching for ARM_GCC_ROOT_FOLDER")
 if(NOT EXISTS "$ENV{ARM_GCC_ROOT_FOLDER}")
