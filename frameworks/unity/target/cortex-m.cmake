@@ -2,6 +2,9 @@ include(CMakePrintHelpers)
 # Since we have begun including this file, we are sure we do need the RTT connection
 
 # this is for generating a target based include ARMCMSIS_DEVICE from STM32Cube.cmake
+if (NOT DEFINED ARMCMSIS_DEVICE)
+    string (TOLOWER ${STM32_DEVICE} ARMCMSIS_DEVICE)
+endif ()
 configure_file(${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.txt ${CMAKE_CURRENT_LIST_DIR}/targetbasedincludes.h @ONLY NEWLINE_STYLE UNIX)
 # Function to setup project executable
 function(setUnityTestProjectProperties project_name test_dir)
@@ -27,6 +30,7 @@ function(setUnityTestProjectProperties project_name test_dir)
     target_compile_definitions(${project_name}
         PUBLIC
             UNITY_MAKE_STATIC_GLOBAL
+            STM32_DEVICE
     )
 
     target_include_directories(${project_name}
@@ -39,6 +43,7 @@ function(setUnityTestProjectProperties project_name test_dir)
             ${TEST_INCLUDE_DIR}/..
             ${OTHER_INCLUDE_DIR}
             ${CMAKE_CURRENT_FUNCTION_LIST_DIR}
+            ${cubemx_SOURCE_DIR}/include/cubemx
     )
 
     target_link_libraries(${project_name}

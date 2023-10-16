@@ -51,7 +51,7 @@ else ()
     endif ()
 
     #5# use the device family to set a cache variable for ARM Cortex Mx family here
-    set (ARMCMSIS_DEVICE ARM$ENV{CORTEX_TYPE} CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
+    set (ARMCMSIS_DEVICE "ARM$ENV{CORTEX_TYPE}" CACHE STRING "CMSIS Arm Cortex Device type to match folder" FORCE)
 
     #6# set the cubemx variable for a particular stm32 type
     set(STM32CubeXX STM32Cube${UPPERCASE_STM32_TYPE} CACHE STRING "CUBEMx String for controller family")
