@@ -56,12 +56,15 @@ file(GLOB STDeviceHeaders ${st_CMSIS_DEVICE_INCLUDE_DIR}/*.h)
 # glob all hal and ll headers
 file(GLOB HALAndLLHeaders ${st_HAL_DRV_INCLUDE_DIR}/*.h)
 
-set(${PROJECT_NAME}_PUBLIC_HEADERS
-    STLegacyHeaders
-    STDeviceHeaders
-    HALAndLLHeaders
+set(AllHeaders
+    ${STLegacyHeaders}
+    ${STDeviceHeaders}
+    ${HALAndLLHeaders}
 )
-list(FILTER ${PROJECT_NAME}_PUBLIC_HEADERS EXCLUDE REGEX "template")
+
+list(FILTER AllHeaders EXCLUDE REGEX "template")
+
+set(${PROJECT_NAME}_PUBLIC_HEADERS ${AllHeaders})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
