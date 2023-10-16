@@ -40,16 +40,27 @@ add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
 # Get the STM32 HAL and CMSIS drivers from STM GitHub pages
-set(st_CMSIS_DRV_INCLUDE_DIR "${st_CMSIS_DIR}/Device/ST/STM32${UPPERCASE_STM32_TYPE}xx/Include")
+set(st_CMSIS_DEVICE_INCLUDE_DIR "${st_CMSIS_DIR}/Device/ST/STM32${UPPERCASE_STM32_TYPE}xx/Include")
 set(st_HAL_DRV_INCLUDE_DIR "${st_HAL_Driver_DIR}/Inc")
 set(st_HAL_DRV_INCLUDE_LEGACY_DIR "${st_HAL_DRV_INCLUDE_DIR}/Legacy")
 set(st_HAL_DRV_SOURCE_DIR "${st_HAL_Driver_DIR}/Src")
 # USE OF GLOB TO MAKE IT USEFUL FOR FUTURE
 file(GLOB st_HAL_DRV_SOURCES ${st_HAL_DRV_SOURCE_DIR}/*.c)
-file(GLOB ${PROJECT_NAME}_PUBLIC_HEADERS ${st_HAL_DRV_INCLUDE_DIR}/*.h)
-
 # exclude all templates from the library
 list(FILTER st_HAL_DRV_SOURCES EXCLUDE REGEX "template")
+
+# glob legacy headers
+file(GLOB STLegacyHeaders ${st_HAL_DRV_INCLUDE_LEGACY_DIR}/*.h)
+# glob device header files
+file(GLOB STDeviceHeaders ${st_CMSIS_DEVICE_INCLUDE_DIR}/*.h)
+# glob all hal and ll headers
+file(GLOB HALAndLLHeaders ${st_HAL_DRV_INCLUDE_DIR}/*.h)
+
+set(${PROJECT_NAME}_PUBLIC_HEADERS
+    STLegacyHeaders
+    STDeviceHeaders
+    HALAndLLHeaders
+)
 list(FILTER ${PROJECT_NAME}_PUBLIC_HEADERS EXCLUDE REGEX "template")
 
 target_sources(${PROJECT_NAME}
@@ -63,7 +74,7 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${cmsis-v5_DEVICE_INCLUDE_PATH}>
         $<BUILD_INTERFACE:${st_HAL_DRV_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${st_HAL_DRV_INCLUDE_LEGACY_DIR}>
-        $<BUILD_INTERFACE:${st_CMSIS_DRV_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${st_CMSIS_DEVICE_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
