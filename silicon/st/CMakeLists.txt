@@ -53,9 +53,7 @@ file(GLOB ${PROJECT_NAME}_PUBLIC_HEADERS ${st_HAL_DRV_INCLUDE_DIR}/*.h)
 
 # exclude all templates from the library
 list(FILTER st_HAL_DRV_SOURCES EXCLUDE REGEX "template")
-list(FILTER st_HAL_DRV_SOURCES EXCLUDE REGEX "ll")
 list(FILTER ${PROJECT_NAME}_PUBLIC_HEADERS EXCLUDE REGEX "template")
-list(FILTER ${PROJECT_NAME}_PUBLIC_HEADERS EXCLUDE REGEX "ll")
 
 target_sources(${PROJECT_NAME}
     PRIVATE
@@ -76,6 +74,7 @@ target_include_directories(${PROJECT_NAME}
 target_compile_definitions(${PROJECT_NAME}
     PUBLIC
         USE_HAL_DRIVER
+        USE_FULL_LL_DRIVER
         ${STM32_DEVICE}
 )
 
