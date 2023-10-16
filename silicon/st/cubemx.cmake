@@ -12,7 +12,7 @@ set(LIST_SUPPORTED_STM32_DEVICE
     "STM32H743xx"
 )
 
-set(libName cubemx)
+set(libName "cubemx")
 set(GITHUB_BRANCH_${libName} "1.11.1")
 message(STATUS "${libName}: ${GITHUB_BRANCH_${libName}}")
 # precompilation
