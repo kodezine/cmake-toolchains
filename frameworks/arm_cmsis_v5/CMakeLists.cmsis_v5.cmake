@@ -15,7 +15,7 @@ add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 # Sub target -------------------------------------------------------------------
 # Static library for generic device objects
 set(GenericName "${PROJECT_NAME}_generic")
-add_library(${GenericName} STATIC EXCLUDE_FROM_ALL)
+add_library(${GenericName} STATIC)
 # Includes ---------------------------------------------------------------------
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
