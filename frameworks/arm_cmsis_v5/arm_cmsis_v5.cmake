@@ -1,7 +1,7 @@
 include(CMakePrintHelpers)
 include(FetchContent)
 
-set(libName "cmsis-v5")
+set(libName "cmsis_v5")
 set(GITHUB_BRANCH_${libName} "5.9.0")
 message(STATUS "${libName}: ${GITHUB_BRANCH_${libName}}")
 
