@@ -33,6 +33,7 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>
 )
 
+
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
         C_STANDARD          11
@@ -82,6 +83,12 @@ target_sources(${GenericName}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Device/ARM/ARM$ENV{CORTEX_TYPE}/Source/system_ARM$ENV{CORTEX_TYPE}.c
 )
+
+target_compile_definitions(${GenericName}
+    PUBLIC
+    ARM$ENV{CORTEX_TYPE}_DP
+)
+
 target_link_libraries(${GenericName}
     ${PROJECT_NAME}
 )
